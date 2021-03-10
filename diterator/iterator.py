@@ -38,6 +38,8 @@ class Iterator:
         else:
             result = requests.get(API_ENDPOINT, params=self.search_params)
             self.search_params["offset"] += self.search_params["limit"]
+            result.raise_for_status() # raise an exception for an HTTP error status
+            
             dom = xml.dom.pulldom.parseString(result.text)
             for event, node in dom:
 
