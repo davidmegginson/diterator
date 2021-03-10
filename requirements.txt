@@ -1,1 +1,2 @@
 requests
+py-dom-xpath-six

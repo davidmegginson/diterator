@@ -2,6 +2,8 @@
 
 import collections, datetime, requests, xml.dom.pulldom
 
+from diterator.wrappers import Activity
+
 
 API_ENDPOINT = "http://www.d-portal.org/q"
 
@@ -32,7 +34,7 @@ class Iterator:
 
     def __next__ (self):
         if len(self.activity_queue) > 0:
-            return self.activity_queue.popleft()
+            return Activity(self.activity_queue.popleft())
         else:
             result = requests.get(API_ENDPOINT, params=self.search_params)
             self.search_params["offset"] += self.search_params["limit"]
@@ -58,4 +60,4 @@ if __name__ == "__main__":
         "year_min": 2020,
     })
     for activity in activities:
-        print(activity.getElementsByTagName("iati-identifier")[0].firstChild.data)
+        print(activity.identifier)
