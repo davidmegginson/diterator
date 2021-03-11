@@ -1,6 +1,9 @@
 
 VENV=./venv/bin/activate
 
+test: venv
+	. $(VENV) && python -m unittest
+
 run: venv
 	. $(VENV) && python -m diterator.iterator
 

@@ -61,5 +61,9 @@ if __name__ == "__main__":
         "country_code": "so",
         "year_min": 2020,
     })
-    for activity in activities:
-        print(activity.identifier)
+    for i, activity in enumerate(activities):
+        print(activity.default_language, activity.identifier, activity.title)
+        for transaction in activity.transactions:
+            print("\t", transaction.type, transaction.currency, transaction.value)
+        if i > 5:
+            break
