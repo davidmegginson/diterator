@@ -1,7 +1,7 @@
 import os, unittest, xml.dom.minidom
 from diterator.wrappers import Activity
 
-class TestElementWrapper(unittest.TestCase):
+class TestActivityWrapper(unittest.TestCase):
 
     ACTIVITY_FILE = os.path.join(os.path.dirname(__file__), "./files/activity-01.xml")
 
@@ -22,6 +22,18 @@ class TestElementWrapper(unittest.TestCase):
 
     def test_reporting_org (self):
         self.assertEqual("International Organization for Migration (IOM)", str(self.activity.reporting_org))
+        # will test org object contents separately
+
+    def test_secondary_reporter (self):
+        self.assertFalse(self.activity.secondary_reporter)
+
+    def test_participating_orgs (self):
+        self.assertEqual(2, len(self.activity.participating_orgs))
+        # will test org object contents separately
 
     def test_title (self):
-        self.assertEqual("Promotion of Human Security through Comprehensive Health and Water, Sanitation and Hygiene (WASH) Assistance to Crisis and Conflict-Affected Populations in Somalia", str(self.activity.title))
+        self.assertTrue(str(self.activity.title).startswith("Promotion of Human Security through Comprehensive Health "))
+
+    def test_description (self):
+        self.assertTrue(str(self.activity.description).startswith("The proposed project provides an "))
+        

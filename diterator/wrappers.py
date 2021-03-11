@@ -99,6 +99,11 @@ class Activity(Base):
         return self.get_text("reporting-org/@secondary-reporter")
 
     @property
+    def participating_orgs (self):
+        """ Return a list of participating organisations """
+        return [Organisation(node, self) for node in self.get_nodes("participating-org")]
+
+    @property
     def title (self):
         """ Return a NarrativeText object with all language versions of the activity's title """
         return self.get_narrative("title")
