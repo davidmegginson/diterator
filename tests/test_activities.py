@@ -77,6 +77,22 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual(0, len(self.activity.recipient_regions))
         # will test CodedItem objects separately
 
+    def test_sectors (self):
+        self.assertEqual(3, len(self.activity.sectors))
+        # will test CodedItem objects separately
+
+    def test_sectors_by_vocabulary (self):
+        self.assertEqual(1, len(self.activity.sectors_by_vocabulary["1"]))
+        self.assertEqual(1, len(self.activity.sectors_by_vocabulary["98"]))
+        self.assertEqual(1, len(self.activity.sectors_by_vocabulary["99"]))
+
+    def test_tags (self):
+        self.assertEqual(0, len(self.activity.tags))
+        # will test CodedItem objects separately
+
+    def test_tags_by_vocabulary (self):
+        self.assertEqual({}, self.activity.tags_by_vocabulary)
+
     def test_transactions (self):
         self.assertEqual(1, len(self.activity.transactions))
         # test Transaction objects separately

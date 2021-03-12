@@ -203,9 +203,33 @@ class Activity(Base):
     
     # location
 
-    # sector
+    @property
+    def sectors (self):
+        """ Return a list of sectors as CodedItem objects """
+        return [CodedItem(node, self) for node in self.get_nodes("sector")]
 
-    # tag
+    @property
+    def sectors_by_vocabulary (self):
+        """ Return a map of sectors, keyed by @vocabulary """
+        sector_map = {}
+        for sector in self.sectors:
+            sector_map.setdefault(sector.vocabulary, [])
+            sector_map[sector.vocabulary].append(sector)
+        return sector_map
+
+    @property
+    def tags (self):
+        """ Return a list of tags as CodedItem objects """
+        return [CodedItem(node, self) for node in self.get_nodes("tag")]
+
+    @property
+    def tags_by_vocabulary (self):
+        """ Return a map of tags, keyed by @vocabulary """
+        tag_map = {}
+        for tag in self.tags:
+            tag_map.setdefault(tag.vocabulary, [])
+            tag_map[tag.vocabulary].append(tag)
+        return tag_map
 
     # country-budget-items
 
@@ -416,7 +440,10 @@ class Organisation(Base):
 
 
 class CodedItem (Base):
-    """ Any item with a code and narrative text """
+    """ Any item with a code and narrative text 
+    May optionally also include @vocabulary, @vocabulary-uri, and/or @percentage
+
+    """
 
     def __init__ (self, node, activity):
         super().__init__(node, activity)
