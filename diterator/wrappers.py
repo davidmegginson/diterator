@@ -201,7 +201,22 @@ class Activity(Base):
         """ Return a list of recipient regions as CodedItem objects """
         return [CodedItem(node, self) for node in self.get_nodes("recipient-region")]
     
-    # location
+    @property
+    def locations (self):
+        """ Return a list of Location objects """
+        return [Location(node, self) for node in self.get_nodes("location")]
+
+    @property
+    def locations_by_class (self):
+        """ Return a map of locations keyed by location class
+        See https://iatistandard.org/en/iati-standard/203/codelists/geographiclocationclass/
+
+        """
+        class_map = {}
+        for location in self.locations:
+            class_map.setdefault(location.location_class, [])
+            class_map[location.location_class].append(location)
+        return class_map
 
     @property
     def sectors (self):
@@ -394,8 +409,10 @@ class NarrativeText(Base):
             return self.narratives[self.activity.default_language]
         elif "en" in self.narratives:
             return self.narratives["en"]
+        elif len(self.narratives) > 0:
+            return list(self.narratives.values())[0]
         else:
-            return self.narratives.values[0]
+            return ""
 
 
 class Organisation(Base):
@@ -454,7 +471,62 @@ class Organisation(Base):
         return self.get_narrative(".")
 
     def __str__ (self):
-        return str(self.name)
+        return str(self.name if self.name is not None else "")
+
+
+class Location (Base):
+    """ Wrapper for a location """
+
+    def __init__ (self, node, activity):
+        super().__init__(node, activity)
+
+    @property
+    def ref (self):
+        return self.get_text("@ref")
+
+    @property
+    def location_reach (self):
+        return self.get_node("location-reach/@code")
+
+    @property
+    def location_ids (self):
+        return [CodedItem(node) for node in self.get_nodes("location-id")]
+
+    @property
+    def name (self):
+        return self.get_narrative("name")
+
+    @property
+    def description (self):
+        return self.get_narrative("description")
+
+    @property
+    def activity_description (self):
+        return self.get_narrative("activity-description")
+
+    @property
+    def administratives (self):
+        return [CodedItem(node) for node in self.get_nodes("administrative")]
+
+    @property
+    def point (self):
+        return self.get_text("point/pos")
+
+    @property
+    def point_reference_system (self):
+        return self.get_text("point/@srsName")
+
+    @property
+    def exactness (self):
+        return self.get_text("exactness/@code")
+
+    @property
+    def location_class (self):
+        return self.get_text("location-class/@code")
+
+    @property
+    def feature_designation (self):
+        return self.get_text("feature-designation/@code")
 
 
 class CodedItem (Base):
@@ -496,6 +568,11 @@ class CodedItem (Base):
         """ Return the @type of the item, if defined """
         return self.get_text("@type")
 
+    @property
+    def level (self):
+        """ Return the @level of the item, if defined """
+        return self.get_text("@level")
+
     def __str__ (self):
-        return self.code
+        return self.code if self.code is not None else ""
 

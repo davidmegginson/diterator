@@ -19,7 +19,7 @@ class Iterator:
             self.search_params.pop("year_min")
         if "year_max" in self.search_params:
             self.search_params["day_start_gteq"] = (datetime.datetime(self.search_params["year_max"], 1, 1) - datetime.datetime(1970, 1, 1)).days
-            self.search_params.pop("year_min")
+            self.search_params.pop("year_max")
 
         # we need to have select tables (if not supplied)
         if "from" not in self.search_params:
