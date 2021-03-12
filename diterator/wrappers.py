@@ -127,9 +127,109 @@ class Activity(Base):
         return org_role_map
 
     @property
+    def participating_orgs_by_type (self):
+        """ Return a dict of participating organisations, keyed by their role codes (as strings)
+        See https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/
+
+        """
+        org_type_map = {}
+        for node in self.get_nodes("participating-org"):
+            org = Organisation(node, self)
+            org_type_map.setdefault(org.type, [])
+            org_type_map[org.type].append(org)
+        return org_type_map
+
+    # other-identifier
+
+    @property
+    def activity_status (self):
+        """ Return a code for the activity status
+        See https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/
+
+        """
+        return self.get_text("activity-status/@code")
+
+    @property
+    def is_active (self):
+        """ Convenience method: return True if the activity status is "2" (Implementation) """
+        return (self.activity_status == "2")
+
+    # activity-date
+
+    @property
+    def start_date_planned (self):
+        """ Return a planned start date (@type=1) """
+        return self.get_text("activity-date[@type=1]/@iso-date")
+
+    @property
+    def start_date_actual (self):
+        """ Return a planned start date (@type=2) """
+        return self.get_text("activity-date[@type=2]/@iso-date")
+
+    @property
+    def end_date_planned (self):
+        """ Return a planned start date (@type=3) """
+        return self.get_text("activity-date[@type=3]/@iso-date")
+
+    @property
+    def end_date_actual (self):
+        """ Return a planned start date (@type=4) """
+        return self.get_text("activity-date[@type=4]/@iso-date")
+
+    # contact-info
+
+    # activity-scope
+
+    # recipient-country
+
+    # recipient-region
+
+    # location
+
+    # sector
+
+    # tag
+
+    # country-budget-items
+
+    # humanitarian-scope
+
+    # policy-marker
+
+    # collaboration-type
+
+    # default-flow-type
+
+    # default-finance-type
+
+    # default-aid-type
+
+    # default-tied-status
+
+    # budget
+
+    # planned-disbursement
+
+    # capital-spend
+
+    @property
     def transactions (self):
         """ Return a list of Transaction objects for the activity """
         return [Transaction(node, self) for node in self.get_nodes("transaction")]
+
+    # document-link
+
+    # related-activity
+
+    # legacy-data
+
+    # conditions
+
+    # result
+
+    # crs-add
+
+    # fss
 
 
 class Transaction(Base):
