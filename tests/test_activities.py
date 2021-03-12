@@ -69,6 +69,14 @@ class TestActivityWrapper(unittest.TestCase):
     def test_end_date_actual (self):
         self.assertIsNone(self.activity.end_date_actual)
 
+    def test_recipient_countries (self):
+        self.assertEqual(1, len(self.activity.recipient_countries))
+        # will test CodedItem objects separately
+
+    def test_recipient_regions (self):
+        self.assertEqual(0, len(self.activity.recipient_regions))
+        # will test CodedItem objects separately
+
     def test_transactions (self):
         self.assertEqual(1, len(self.activity.transactions))
         # test Transaction objects separately

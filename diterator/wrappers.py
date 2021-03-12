@@ -157,33 +157,50 @@ class Activity(Base):
     # activity-date
 
     @property
+    def activity_dates (self):
+        """ Return a dict of activity dates, keyed by the type code
+        See https://iatistandard.org/en/iati-standard/203/codelists/activitydatetype/
+
+        """
+        date_map = {}
+        for node in self.get_nodes("activity-date"):
+            date_map[self.get_text("@type", node)] = self.get_text("@iso-date", node)
+        return date_map
+
+    @property
     def start_date_planned (self):
-        """ Return a planned start date (@type=1) """
+        """ Convenience method to return the planned start date (@type=1) """
         return self.get_text("activity-date[@type=1]/@iso-date")
 
     @property
     def start_date_actual (self):
-        """ Return a planned start date (@type=2) """
+        """ Convenience method to return the actual start date (@type=2) """
         return self.get_text("activity-date[@type=2]/@iso-date")
 
     @property
     def end_date_planned (self):
-        """ Return a planned start date (@type=3) """
+        """ Convenience method to return the planned end date (@type=3) """
         return self.get_text("activity-date[@type=3]/@iso-date")
 
     @property
     def end_date_actual (self):
-        """ Return a planned start date (@type=4) """
+        """ Convenience method to return the actual end date (@type=3) """
         return self.get_text("activity-date[@type=4]/@iso-date")
 
     # contact-info
 
     # activity-scope
 
-    # recipient-country
-
-    # recipient-region
-
+    @property
+    def recipient_countries (self):
+        """ Return a list of recipient countries as CodedItem objects """
+        return [CodedItem(node, self) for node in self.get_nodes("recipient-country")]
+    
+    @property
+    def recipient_regions (self):
+        """ Return a list of recipient regions as CodedItem objects """
+        return [CodedItem(node, self) for node in self.get_nodes("recipient-region")]
+    
     # location
 
     # sector
@@ -397,4 +414,38 @@ class Organisation(Base):
     def __str__ (self):
         return str(self.name)
 
+
+class CodedItem (Base):
+    """ Any item with a code and narrative text """
+
+    def __init__ (self, node, activity):
+        super().__init__(node, activity)
+
+    @property
+    def code (self):
+        """ Return the code for this object """
+        return self.get_text("@code")
+
+    @property
+    def vocabulary (self):
+        """ Return the code vocabulary, if defined """
+        return self.get_text("@vocabulary")
+
+    @property
+    def vocabulary_uri (self):
+        """ Return the code vocabulary's URI, if defined """
+        return self.get_text("@vocabulary-uri")
+
+    @property
+    def narrative (self):
+        """ Return any narrative text for the item """
+        return self.get_narrative(".")
+
+    @property
+    def percentage (self):
+        """ Return the percentage applicable to this item, if defined """
+        return self.get_text("@percentage")
+
+    def __str__ (self):
+        return self.code
 
