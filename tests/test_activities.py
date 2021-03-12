@@ -31,6 +31,12 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual(2, len(self.activity.participating_orgs))
         # test Organisation objects separately
 
+    def test_participating_orgs_by_role (self):
+        orgs = self.activity.participating_orgs_by_role
+        self.assertEqual(1, len(orgs["1"]))
+        self.assertEqual(1, len(orgs["2"]))
+        # test Organisation objects separately
+
     def test_title (self):
         self.assertTrue(str(self.activity.title).startswith("Promotion of Human Security through Comprehensive Health "))
         # test NarrativeText objects separately

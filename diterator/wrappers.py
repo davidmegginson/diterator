@@ -12,21 +12,21 @@ class Base(abc.ABC):
             activity = self
         self.activity = activity
 
-    def get_text (self, xpath_expr):
+    def get_text (self, xpath_expr, base_node=None):
         """ Get the text associated with an XPath expression """
-        return self.extract_node_text(self.get_node(xpath_expr))
+        return self.extract_node_text(self.get_node(xpath_expr, base_node))
 
-    def get_narrative (self, xpath_expr):
+    def get_narrative (self, xpath_expr, base_node=None):
         """ Get a NarrativeText object associated with an XPath expression """
-        node = self.get_node(xpath_expr)
+        node = self.get_node(xpath_expr, base_node)
         if node:
             return NarrativeText(node, self.activity)
         else:
             return None
 
-    def get_organisation (self, xpath_expr):
+    def get_organisation (self, xpath_expr, base_node=None):
         """ Get an organisation object associated with an XPath expression """
-        node = self.get_node(xpath_expr)
+        node = self.get_node(xpath_expr, base_node)
         if node:
             return Organisation(node, self.activity)
         else:
@@ -99,11 +99,6 @@ class Activity(Base):
         return self.get_text("reporting-org/@secondary-reporter")
 
     @property
-    def participating_orgs (self):
-        """ Return a list of participating organisations """
-        return [Organisation(node, self) for node in self.get_nodes("participating-org")]
-
-    @property
     def title (self):
         """ Return a NarrativeText object with all language versions of the activity's title """
         return self.get_narrative("title")
@@ -112,6 +107,24 @@ class Activity(Base):
     def description (self):
         """ Return a NarrativeText object with all language versions of the activity's description """
         return self.get_narrative("description")
+
+    @property
+    def participating_orgs (self):
+        """ Return a list of participating organisations """
+        return [Organisation(node, self) for node in self.get_nodes("participating-org")]
+
+    @property
+    def participating_orgs_by_role (self):
+        """ Return a dict of participating organisations, keyed by their role codes (as strings)
+        See https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/
+
+        """
+        org_role_map = {}
+        for node in self.get_nodes("participating-org"):
+            org = Organisation(node, self)
+            org_role_map.setdefault(org.role, [])
+            org_role_map[org.role].append(org)
+        return org_role_map
 
     @property
     def transactions (self):
@@ -230,6 +243,13 @@ class Organisation(Base):
     """ Wrapper class for a node describing an organisation
     Includes only intrinsic properties for an org, not ones that vary by context
 
+    This class knowingly violates data-modelling best practices by
+    including the role and activity_id properties, both of which are
+    part of the context in which an organisation is mentioned, rather
+    than an intrinsic trait of the organisation itself. Otherwise, the
+    interface would be unnecessarily complicated simply for the sake
+    of being correct.
+
     """
 
     def __init__ (self, node, activity):
@@ -238,12 +258,36 @@ class Organisation(Base):
     @property
     def ref (self):
         """ Return the organisation's identifier, or None """
-        return self.node_text("@ref")
+        return self.get_text("@ref")
 
     @property
     def type (self):
-        """ Return the organisation's type code from https://iatistandard.org/en/iati-standard/203/codelists/organisationtype/ """
-        return self.node_text("@type")
+        """ Return the organisation's type code
+        See https://iatistandard.org/en/iati-standard/203/codelists/organisationtype/
+
+        """
+        return self.get_text("@type")
+
+    @property
+    def role (self):
+        """ Return the organisation's @role code, if defined.
+        See https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/
+
+        """
+        return self.get_text("@role")
+
+    @property
+    def activity_id (self):
+        """ Return the organisation's own IATI activity ID, if defined
+        Will try @activity-id, @provider-activity-id, and @receiver-activity-id, in that order
+
+        """
+        id = self.get_text("@activity-id") # participating-org
+        if not id:
+            id = self.get_text("@provider-activity-id") # transaction/provider-org
+        if not id:
+            id = self.get_text("@receiver-activity-id") # transaction/receiver-org
+        return id
 
     @property
     def name (self):
