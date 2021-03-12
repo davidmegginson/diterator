@@ -233,7 +233,25 @@ class Activity(Base):
 
     # country-budget-items
 
-    # humanitarian-scope
+    @property
+    def humanitarian_scopes (self):
+        return [CodedItem(node, self) for node in self.get_nodes("humanitarian-scope")]
+
+    @property
+    def humanitarian_scopes_by_type (self):
+        type_map = {}
+        for scope in self.humanitarian_scopes:
+            type_map.set_default(scope.type, [])
+            type_map[scope.type].append(scope)
+        return type_map
+
+    @property
+    def humanitarian_scopes_by_vocabulary (self):
+        vocabulary_map = {}
+        for scope in self.humanitarian_scopes:
+            vocabulary_map.set_default(scope.vocabulary, [])
+            vocabulary_map[scope.vocabulary].append(scope)
+        return vocabulary_map
 
     # policy-marker
 
@@ -472,6 +490,11 @@ class CodedItem (Base):
     def percentage (self):
         """ Return the percentage applicable to this item, if defined """
         return self.get_text("@percentage")
+
+    @property
+    def type (self):
+        """ Return the @type of the item, if defined """
+        return self.get_text("@type")
 
     def __str__ (self):
         return self.code

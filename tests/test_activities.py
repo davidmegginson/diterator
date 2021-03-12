@@ -93,6 +93,16 @@ class TestActivityWrapper(unittest.TestCase):
     def test_tags_by_vocabulary (self):
         self.assertEqual({}, self.activity.tags_by_vocabulary)
 
+    def test_humanitarian_scopes (self):
+        self.assertEqual(0, len(self.activity.humanitarian_scopes))
+        # will test CodedItem objects separately
+
+    def test_humanitarian_scopes_by_type (self):
+        self.assertEqual({}, self.activity.humanitarian_scopes_by_type)
+        
+    def test_humanitarian_scopes_by_vocabulary (self):
+        self.assertEqual({}, self.activity.humanitarian_scopes_by_vocabulary)
+        
     def test_transactions (self):
         self.assertEqual(1, len(self.activity.transactions))
         # test Transaction objects separately
