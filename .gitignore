@@ -1,5 +1,8 @@
 *.pyc
-__pycache__
 /Makefile
+/build
+/dist
+/diterator.egg-info
 /requirements.txt
 /venv
+__pycache__

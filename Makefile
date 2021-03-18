@@ -2,7 +2,7 @@
 VENV=./venv/bin/activate
 
 test: venv
-	. $(VENV) && python -m unittest
+	. $(VENV) && python setup.py test
 
 run: venv
 	. $(VENV) && python -m diterator.iterator

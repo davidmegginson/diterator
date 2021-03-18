@@ -81,7 +81,7 @@ class Activity(Base):
     @property
     def humanitarian (self):
         """ Return a truthy value (usually "1") if the activity as a whole is flagged as humanitarian """
-        return self.get_text("@humanitarian")
+        return is_truthy(self.get_text("@humanitarian"))
 
     @property
     def identifier (self):
@@ -96,7 +96,7 @@ class Activity(Base):
     @property
     def secondary_reporter (self):
         """ Return a truthy value if the organisation is not directly responsible for the activity """
-        return self.get_text("reporting-org/@secondary-reporter")
+        return is_truthy(self.get_text("reporting-org/@secondary-reporter"))
 
     @property
     def title (self):
@@ -336,8 +336,16 @@ class Transaction(Base):
 
     @property
     def humanitarian (self):
-        """ Return a truthy value (usually "1") if this specific transaction is flagged as humanitarian """
-        return self.get_text("@humanitarian")
+        """ Return a truthy value (usually "1") if this specific transaction is flagged as humanitarian
+        If there's no attribute, default to the activity value.
+        If you want to see if the transaction actually has an attribute, use transaction.get_text("@humanitarian") instead.
+
+        """
+        s = self.get_text("@humanitarian")
+        if s is not None:
+            return is_truthy(s)
+        else:
+            return self.activity.humanitarian
 
     @property
     def date (self):
@@ -387,12 +395,22 @@ class Transaction(Base):
 
     @property
     def sectors (self):
-        """ Return a list of sectors as CodedItem objects """
-        return [CodedItem(node, self.activity) for node in self.get_nodes("sector")]
+        """ Return a list of sectors as CodedItem objects
+        If no sectors are specified, return the activity's sectors instead.
+        If you need to know if the transaction has its own sectors, use
+        transaction.get_nodes("sector") to check.
+
+        """
+        nodes = self.get_nodes("sector")
+        if len(nodes) > 0:
+            return [CodedItem(node, self.activity) for node in nodes]
+        else:
+            return self.activity.sectors
 
     @property
     def sectors_by_vocabulary (self):
         """ Return a map of sectors, keyed by @vocabulary 
+        Will return the activity's sectors if the transaction has none of its own.
         See https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/
 
         """
@@ -404,13 +422,25 @@ class Transaction(Base):
 
     @property
     def recipient_countries (self):
-        """ Return a list of recipient countries as CodedItem objects """
+        """ Return a list of recipient countries as CodedItem objects
+        Will return the activity's recipient countries if the transaction has none of its own.
+        If you need to know if the transaction has its own, use transaction.get_nodes("recipient-country") to check.
+
+        """
         return [CodedItem(node, self.activity) for node in self.get_nodes("recipient-country")]
     
     @property
     def recipient_regions (self):
-        """ Return a list of recipient regions as CodedItem objects """
-        return [CodedItem(node, self.activity) for node in self.get_nodes("recipient-region")]
+        """ Return a list of recipient regions as CodedItem objects 
+        Will return the activity's recipient regions if the transaction has none of its own.
+        If you need to know if the transaction has its own, use transaction.get_nodes("recipient-region") to check.
+
+        """
+        nodes = self.get_nodes("recipient-region")
+        if len(nodes) > 0:
+            return [CodedItem(node, self.activity) for node in nodes]
+        else:
+            return self.activity.recipient_regions
     
     # flow-type
 
@@ -620,3 +650,12 @@ class CodedItem (Base):
     def __str__ (self):
         return self.code if self.code is not None else ""
 
+#
+# Utility methods
+#
+
+def is_truthy (s):
+    if not s:
+        return False
+    else:
+        return s.strip().lower() in ['1', 'true', 'yes', 't', 'y']

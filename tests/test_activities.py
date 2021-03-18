@@ -15,7 +15,7 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual("en", self.activity.default_language)
 
     def test_humanitarian (self):
-        self.assertTrue(self.activity.humanitarian)
+        self.assertTrue(self.activity.humanitarian is True)
 
     def test_identifier (self):
         self.assertEqual("XM-DAC-47066-DP.2154", self.activity.identifier)
@@ -25,7 +25,7 @@ class TestActivityWrapper(unittest.TestCase):
         # test Organisation objects separately
 
     def test_secondary_reporter (self):
-        self.assertFalse(self.activity.secondary_reporter)
+        self.assertFalse(self.activity.secondary_reporter is False)
 
     def test_title (self):
         self.assertTrue(str(self.activity.title).startswith("Promotion of Human Security through Comprehensive Health "))
@@ -55,7 +55,7 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual("2", self.activity.activity_status)
 
     def test_is_active (self):
-        self.assertTrue(self.activity.is_active)
+        self.assertTrue(self.activity.is_active is True)
 
     def test_start_date_planned (self):
         self.assertEqual("2020-03-15", self.activity.start_date_planned)

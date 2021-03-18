@@ -5,12 +5,12 @@ This library makes it easy to download [IATI](https://iatistandard.org) activiti
 
 ## Usage
 
-The _diterator.iterator.Iterator_ class creates a stream of IATI activities from D-Portal matching the query parameters you provide:
+The _diterator.iterator.Iterator_ class (also available from the package root) creates a stream of IATI activities from D-Portal matching the query parameters you provide:
 
 ```
-import diterator.iterator
+from diterator import Iterator
 
-activities = diterator.iterator.Iterator({
+activities = Iterator({
     "country_code": "ye",
 })
 
@@ -33,9 +33,9 @@ Note that some queries will return the same activity multiple times, so you will
 If you prefer to read IATI activities directly from a URL (e.g. one found at the [IATI Registry](https://iatiregistry.org/)) or a local file, then you can use the XMLIterator class instead:
 
 ```
-from diterator.iterator import XMLIterator
+from diterator import XMLIterator
 
-activities = diterator.iterator.XMLIterator(url="https://static.rijksoverheid.nl/bz/IATIACTIVITIES20202021.xml")
+activities = XMLIterator(url="https://static.rijksoverheid.nl/bz/IATIACTIVITIES20202021.xml")
 for activity in activities:
     print(activity.identifier)
 ```
@@ -43,9 +43,9 @@ for activity in activities:
 If your source is a URL rather than a file object or local file name, as in the example above, then you need to put "url=" before it. For a local XML file, leave the "url=" out, so the above example would look like this:
 
 ```
-from diterator.iterator import XMLIterator
+from diterator import XMLIterator
 
-activities = diterator.iterator.XMLIterator("IATIACTIVITIES20202021.xml")
+activities = diterator.XMLIterator("IATIACTIVITIES20202021.xml")
 for activity in activities:
     print(activity.identifier)
 ```
@@ -127,7 +127,7 @@ Property | Description | Return value
 -- | -- | --
 activity | The parent activity. | Activity
 ref | The transaction reference, if available. | string
-humanitarian | "Is humanitarian" flag at the transaction level (overrides activity default). | boolean
+humanitarian | "Is humanitarian" flag at the transaction level (overrides activity default). If the transaction has no flag, return the activity's value as a default. You can use transaction.get_text("@humanitarian") to check if the transaction has its own flag. | boolean
 date | Transaction date in ISO 8601 format. | string
 type | Type code for the transaction. | string
 value | Transaction value in its currency (may be negative). | float
@@ -137,10 +137,10 @@ description | Descriptive text for the transaction, possibly in multiple languag
 provider_org | The source of the funds in the transaction. | Organisation
 receiver_org | The destination of the funds in the transaction. | Organisation
 disbursement_channel | _Not yet implemented_ | 
-sectors | A list of transaction sectors (all vocabularies), overriding the activity defaults. | list of CodedItem
-sectors_by_vocabulary | Transaction sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). | dict with lists of CodedItem
-recipient_countries | A list of recipient countries, overriding the activity defaults. | list of CodedItem
-recipient_regions | A list of recipient regions, overriding the activity defaults. | list of CodedItem
+sectors | A list of transaction sectors (all vocabularies), overriding the activity defaults. If the transaction has no sectors, return the activity's sectors as a default. You can use transaction.get_nodes("sector") to check if the transaction specifies its own. | list of CodedItem
+sectors_by_vocabulary | Transaction sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). Will default to the activity's sectors if the transaction does not specify its own. | dict with lists of CodedItem
+recipient_countries | A list of recipient countries, overriding the activity defaults. If the transaction has no recipient countries, return the activity's recipient countries as a default. You can use transaction.get_nodes("recipient-country") to check if the transaction specifies its own. | list of CodedItem
+recipient_regions | A list of recipient regions, overriding the activity defaults. If the transaction has no recipient regions, return the activity's recipient regions as a default. You can use transaction.get_nodes("recipient-region") to check if the transaction specifies its own. | list of CodedItem
 flow_type | _Not yet implemented_ | 
 finance_type | _Not yet implemented_ | 
 aid_type | _Not yet implemented_ | 
@@ -207,9 +207,9 @@ level | code for the level of the item, if relevant. | string
 ```
 # Print the identifier and title of every activity for Somalia from 2019 to 2021
 
-import diterator.iterator
+from diterator import Iterator
 
-activities = diterator.iterator.Iterator({
+activities = Iterator({
     "from": "activities",
     "country_code": "so",
     "day_gteq": "2019-01-01",
