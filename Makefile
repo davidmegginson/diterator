@@ -5,7 +5,7 @@ test: venv
 	. $(VENV) && python -m unittest
 
 run: venv
-	. $(VENV) && python get-somalia-activities.py
+	. $(VENV) && python -m diterator.iterator
 
 venv: requirements.txt
 	rm -rf venv

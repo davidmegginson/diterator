@@ -362,19 +362,25 @@ class Transaction(Base):
         return self.get_organisation("provider-org")
 
     @property
-    def provider_activity_id (self):
-        """ Return the IATI activity id that's the source of incoming funds """
-        return self.get_text("provider-org/@provider-activity-id")
-
-    @property
     def receiver_org (self):
         """ Return an Organisation object for the provider of incoming funds """
         return self.get_organisation("provider-org")
 
-    @property
-    def receiver_activity_id (self):
-        """ Return the IATI activity id that's the source of incoming funds """
-        return self.get_text("provider-org/@provider-activity-id")
+    # disbursement-channel
+
+    # sector
+
+    # recipient-country
+
+    # recipient-region
+
+    # flow-type
+
+    # finance-type
+
+    # aid-type
+
+    # tied-status
 
 
 class NarrativeText(Base):

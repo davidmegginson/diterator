@@ -9,17 +9,12 @@ API_ENDPOINT = "http://www.d-portal.org/q"
 
 class Iterator:
 
-    def __init__ (self, search_params={}):
+    def __init__ (self, search_params={}, deduplicate=True):
         self.search_params = dict(search_params)
         self.activity_queue = collections.deque()
-
-        # a little help with dates
-        if "year_min" in self.search_params:
-            self.search_params["day_end_lteq"] = (datetime.datetime(self.search_params["year_min"], 12, 31) - datetime.datetime(1970, 1, 1)).days
-            self.search_params.pop("year_min")
-        if "year_max" in self.search_params:
-            self.search_params["day_start_gteq"] = (datetime.datetime(self.search_params["year_max"], 1, 1) - datetime.datetime(1970, 1, 1)).days
-            self.search_params.pop("year_max")
+        self.deduplicate = deduplicate
+        if deduplicate:
+            self.identifiers_seen = set()
 
         # we need to have select tables (if not supplied)
         if "from" not in self.search_params:
@@ -34,7 +29,14 @@ class Iterator:
 
     def __next__ (self):
         if len(self.activity_queue) > 0:
-            return Activity(self.activity_queue.popleft())
+            activity = Activity(self.activity_queue.popleft())
+            if self.deduplicate:
+                if activity.identifier in self.identifiers_seen:
+                    # recurse
+                    return self.__next__()
+                else:
+                    self.identifiers_seen.add(activity.identifier)
+            return activity
         else:
             result = requests.get(API_ENDPOINT, params=self.search_params)
             self.search_params["offset"] += self.search_params["limit"]
@@ -59,8 +61,8 @@ class Iterator:
 if __name__ == "__main__":
     activities = Iterator({
         "country_code": "so",
-        "year_min": 2020,
-    })
+        "day_gteq": "2020-01-01",
+    }, deduplicate=True)
     for i, activity in enumerate(activities):
         print(activity.default_language, activity.identifier, activity.title)
         for transaction in activity.transactions:
