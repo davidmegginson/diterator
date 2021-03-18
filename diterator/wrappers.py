@@ -119,12 +119,11 @@ class Activity(Base):
         See https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/
 
         """
-        org_role_map = {}
-        for node in self.get_nodes("participating-org"):
-            org = Organisation(node, self)
-            org_role_map.setdefault(org.role, [])
-            org_role_map[org.role].append(org)
-        return org_role_map
+        role_map = {}
+        for org in self.participating_orgs:
+            role_map.setdefault(org.role, [])
+            role_map[org.role].append(org)
+        return role_map
 
     @property
     def participating_orgs_by_type (self):
@@ -132,12 +131,11 @@ class Activity(Base):
         See https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/
 
         """
-        org_type_map = {}
-        for node in self.get_nodes("participating-org"):
-            org = Organisation(node, self)
-            org_type_map.setdefault(org.type, [])
-            org_type_map[org.type].append(org)
-        return org_type_map
+        type_map = {}
+        for org in self.participating_orgs:
+            type_map.setdefault(org.type, [])
+            type_map[org.type].append(org)
+        return type_map
 
     # other-identifier
 
@@ -225,7 +223,10 @@ class Activity(Base):
 
     @property
     def sectors_by_vocabulary (self):
-        """ Return a map of sectors, keyed by @vocabulary """
+        """ Return a map of sectors, keyed by @vocabulary 
+        See https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/
+
+        """
         sector_map = {}
         for sector in self.sectors:
             sector_map.setdefault(sector.vocabulary, [])
@@ -239,7 +240,10 @@ class Activity(Base):
 
     @property
     def tags_by_vocabulary (self):
-        """ Return a map of tags, keyed by @vocabulary """
+        """ Return a map of tags, keyed by @vocabulary
+        See https://iatistandard.org/en/iati-standard/203/codelists/tagvocabulary/
+
+        """
         tag_map = {}
         for tag in self.tags:
             tag_map.setdefault(tag.vocabulary, [])
@@ -254,6 +258,7 @@ class Activity(Base):
 
     @property
     def humanitarian_scopes_by_type (self):
+        """ See https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopetype/ """
         type_map = {}
         for scope in self.humanitarian_scopes:
             type_map.set_default(scope.type, [])
@@ -290,6 +295,18 @@ class Activity(Base):
     def transactions (self):
         """ Return a list of Transaction objects for the activity """
         return [Transaction(node, self) for node in self.get_nodes("transaction")]
+
+    @property
+    def transactions_by_type (self):
+        """ Return a dict of transactions grouped by type code.
+        See https://iatistandard.org/en/iati-standard/203/codelists/transactiontype/
+
+        """
+        type_map = {}
+        for transaction in self.transactions:
+            type_map.setdefault(transaction.type, [])
+            type_map[transaction.type].append(transaction)
+        return type_map
 
     # document-link
 
@@ -368,12 +385,33 @@ class Transaction(Base):
 
     # disbursement-channel
 
-    # sector
+    @property
+    def sectors (self):
+        """ Return a list of sectors as CodedItem objects """
+        return [CodedItem(node, self.activity) for node in self.get_nodes("sector")]
 
-    # recipient-country
+    @property
+    def sectors_by_vocabulary (self):
+        """ Return a map of sectors, keyed by @vocabulary 
+        See https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/
 
-    # recipient-region
+        """
+        sector_map = {}
+        for sector in self.sectors:
+            sector_map.setdefault(sector.vocabulary, [])
+            sector_map[sector.vocabulary].append(sector)
+        return sector_map
 
+    @property
+    def recipient_countries (self):
+        """ Return a list of recipient countries as CodedItem objects """
+        return [CodedItem(node, self.activity) for node in self.get_nodes("recipient-country")]
+    
+    @property
+    def recipient_regions (self):
+        """ Return a list of recipient regions as CodedItem objects """
+        return [CodedItem(node, self.activity) for node in self.get_nodes("recipient-region")]
+    
     # flow-type
 
     # finance-type

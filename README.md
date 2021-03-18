@@ -1,11 +1,11 @@
 Iterator through IATI activities from D-Portal
 ==============================================
 
-This library makes it easy to download IATI activities from D-Portal and iterate through them. It takes care of issues like paging, XML parsing, etc. There are wrapper classes for the most-common properties of an IATI activity, and the entire XML is available through XPath queries (if desired).
+This library makes it easy to download [IATI](https://iatistandard.org) activities from [D-Portal](https://d-portal.org) and iterate through them. It takes care of issues like paging, XML parsing, etc. There are wrapper classes for the most-common properties of an [IATI activity](https://iatistandard.org/en/iati-standard/203/activity-standard/), and the entire XML is available through [XPath](https://en.wikipedia.org/wiki/XPath) queries (if desired).
 
 ## Usage
 
-The diterator.iterator.Iterator class creates a stream of IATI activities from D-Portal matching the query parameters you provide:
+The _diterator.iterator.Iterator_ class creates a stream of IATI activities from D-Portal matching the query parameters you provide:
 
 ```
 import diterator.iterator
@@ -18,13 +18,13 @@ for activity in activities:
     print("Activity", activity.identifier)
 ```
 
-By default, the Iterator class filters duplicate activities out of the results. If you don't want that behaviour, add the parameter deduplicate=False
+By default, the Iterator class filters duplicate activities out of the results. If you don't want that behaviour, add the parameter ``deduplicate=False``
 
 Each activity appears inside a wrapper that gives you easy access to the most-common properties (see documentation below). You can also use [XPath](https://en.wikipedia.org/wiki/XPath) queries to pull out specific pieces of information.
 
 Full documentation of the D-Portal query parameters is available here:
 
-https://github.com/devinit/D-Portal/blob/master/documents/dstore_q.md#the-from-part-of-an-sql-statement
+https://github.com/devinit/D-Portal/blob/master/documents/dstore_q.md
 
 Note that some queries will return the same activity multiple times, so you will need to deduplicate.
 
@@ -34,7 +34,7 @@ Each activity will be returned wrapped in the Python class diterator.wrappers.Ac
 
 Method | Description | Example
 -- | -- | --
-get_text(xpath_expr) | Get the text content of the _first_ DOM node matching the XPath expression. | activity.get_text("reporting-org/@ref")
+get_text(xpath_expr) | Get the text content of the _first_ [DOM](https://docs.python.org/3/library/xml.dom.html) node matching the [XPath](https://en.wikipedia.org/wiki/XPath) expression. | activity.get_text("reporting-org/@ref")
 get_narrative(xpath_expr) | Get the multilingual narrative content inside the first node matching the XPath expression. |  activity.get_narrative("title")
 get_organisation(xpath_expr) | Get the organisation info for the first node matching the XPath expression. | transaction.get_organisation("provider-org")
 get_node(xpath_expr) | Get the first first DOM node matching the XPath expression. | transaction.get_node("value")
@@ -56,11 +56,11 @@ secondary_reporter | If true, the reporting org is not involved in the activity.
 title | The activity title, possibly in multiple languages. | NarrativeText
 description | The activity description, possibly in multiple languages. | NarrativeText
 participating_orgs | All participating organisations. | list of Organisation
-participating_orgs_by_role | Participating organisations grouped by role. | dict with lists of Organisation
-participating_orgs_by_type | Participating organisations grouped by type code. | dict with lists of Organisation
-activity_status | A code describing the status of the activity. | string
+participating_orgs_by_role | Participating organisations grouped by [role code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of Organisation
+participating_orgs_by_type | Participating organisations grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of Organisation
+activity_status | A code describing the [status of the activity](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/). | string
 is_active | Convenience method to show if the activity is currently active. | boolean
-activity_dates | Activity dates grouped by the date-type code. | dict with strings
+activity_dates | Activity dates grouped by the [date-type code](https://iatistandard.org/en/iati-standard/203/codelists/activitydatetype/). | dict with strings
 start_date_planned | The planned start date in ISO 8601 format, if specified. | string
 start_date_actual | The actual start date in ISO 8601 format, if specified. | string
 end_date_planned | The planned end date in ISO 8601 format, if specified. | string
@@ -70,14 +70,14 @@ activity_scope | _Not yet implemented_ |
 recipient_countries | A list of recipient countries. | list of CodedItem
 recipient_regions | A list of recipient regions. | list of CodedItem
 locations | A list of specific project locations. | list of Location
-locations_by_class | Specific project locations, grouped by class code. | dict with lists of Location
+locations_by_class | Specific project locations, grouped by [class code](https://iatistandard.org/en/iati-standard/203/codelists/geographiclocationclass/). | dict with lists of Location
 sectors | A list of project sectors (all vocabularies). | list of CodedItem
-sectors_by_vocabulary | Sectors grouped by vocabulary code. | dict with lists of CodedItem
+sectors_by_vocabulary | Sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). | dict with lists of CodedItem
 tags | Activity tags (all vocabularies). | list of CodedItem
-tags_by_vocabulary | Activity tags grouped by vocabulary code. | dict with lists of CodedItem
+tags_by_vocabulary | Activity tags grouped by [tag vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/tagvocabulary/). | dict with lists of CodedItem
 humanitarian_scopes | Humanitarian scopes (all types and vocabularies). | list of CodedItem
-humanitarian_scopes_by_type | Humanitarian scopes grouped by type code. | dict with lists of CodedItem
-humanitarian_scopes_by_vocabulary | Humanitarian scopes grouped by vocabulary code. | dict with lists of CodedItem
+humanitarian_scopes_by_type | Humanitarian scopes grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopetype/). | dict with lists of CodedItem
+humanitarian_scopes_by_vocabulary | Humanitarian scopes grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopevocabulary/). | dict with lists of CodedItem
 policy_marker | _Not yet implemented_ | 
 collaboration_type | _Not yet implemented_ | 
 default_flow_type | _Not yet implemented_ | 
@@ -88,6 +88,7 @@ budget | _Not yet implemented_ |
 planned_disbursement | _Not yet implemented_ | 
 capital_spend | _Not yet implemented_ | 
 transactions | All transactions associated with the activity. | list of Transaction objects
+transactions_by_type | Transactions grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/transactiontype/). | dict with Transaction
 document_link | _Not yet implemented_ | 
 related_activity | _Not yet implemented_ | 
 legacy_data | _Not yet implemented_ | 
@@ -114,9 +115,10 @@ description | Descriptive text for the transaction, possibly in multiple languag
 provider_org | The source of the funds in the transaction. | Organisation
 receiver_org | The destination of the funds in the transaction. | Organisation
 disbursement_channel | _Not yet implemented_ | 
-sector | _Not yet implemented_ | 
-recipient_country | _Not yet implemented_ | 
-recipient_region | _Not yet implemented_ | 
+sectors | A list of transaction sectors (all vocabularies), overriding the activity defaults. | list of CodedItem
+sectors_by_vocabulary | Transaction sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). | dict with lists of CodedItem
+recipient_countries | A list of recipient countries, overriding the activity defaults. | list of CodedItem
+recipient_regions | A list of recipient regions, overriding the activity defaults. | list of CodedItem
 flow_type | _Not yet implemented_ | 
 finance_type | _Not yet implemented_ | 
 aid_type | _Not yet implemented_ | 
