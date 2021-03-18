@@ -28,6 +28,28 @@ https://github.com/devinit/D-Portal/blob/master/documents/dstore_q.md
 
 Note that some queries will return the same activity multiple times, so you will need to deduplicate.
 
+### Using an XML file or URL instead of the D-Portal Q API
+
+If you prefer to read IATI activities directly from a URL (e.g. one found at the [IATI Registry](https://iatiregistry.org/)) or a local file, then you can use the XMLIterator class instead:
+
+```
+from diterator.iterator import XMLIterator
+
+activities = diterator.iterator.XMLIterator(url="https://static.rijksoverheid.nl/bz/IATIACTIVITIES20202021.xml")
+for activity in activities:
+    print(activity.identifier)
+```
+
+If your source is a URL rather than a file object or local file name, as in the example above, then you need to put "url=" before it. For a local XML file, leave the "url=" out, so the above example would look like this:
+
+```
+from diterator.iterator import XMLIterator
+
+activities = diterator.iterator.XMLIterator("IATIACTIVITIES20202021.xml")
+for activity in activities:
+    print(activity.identifier)
+```
+
 ## Wrapper objects
 
 Each activity will be returned wrapped in the Python class diterator.wrappers.Activity, which provides simple access to many of the common properties. All wrappers support some common properties for direct queries against the XML (in case the information you need isn't covered by the properties):
