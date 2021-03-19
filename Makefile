@@ -7,6 +7,9 @@ test: venv
 run: venv
 	. $(VENV) && python -m diterator
 
+publish: venv
+	. $(VENV) && pip install twine && rm -f dist/* && python setup.py sdist && twine upload dist/*
+
 venv: requirements.txt
 	rm -rf venv
 	python3 -m venv venv
