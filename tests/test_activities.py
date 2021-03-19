@@ -25,7 +25,7 @@ class TestActivityWrapper(unittest.TestCase):
         # test Organisation objects separately
 
     def test_secondary_reporter (self):
-        self.assertFalse(self.activity.secondary_reporter is False)
+        self.assertTrue(self.activity.secondary_reporter is False)
 
     def test_title (self):
         self.assertTrue(str(self.activity.title).startswith("Promotion of Human Security through Comprehensive Health "))

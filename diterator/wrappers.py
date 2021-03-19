@@ -137,7 +137,13 @@ class Activity(Base):
             type_map[org.type].append(org)
         return type_map
 
-    # other-identifier
+    @property
+    def other_identifiers (self):
+        """ Return a list of Identifier objects for alternative, non-IATI activity identifiers """
+        identifiers = []
+        for node in self.get_nodes("other-identifier"):
+            identifiers.append(Identifier(node))
+        return identifiers
 
     @property
     def activity_status (self):
@@ -649,6 +655,37 @@ class CodedItem (Base):
 
     def __str__ (self):
         return self.code if self.code is not None else ""
+
+
+class Identifier(Base):
+    """ A non-IATI activity identifier """
+
+    def __init__ (self, node, activity):
+        super().__init__(node, activity)
+
+    @property
+    def ref (self):
+        """ Return text of the alternative activity identifier """
+        return self.get_text("@ref")
+
+    @property
+    def type (self):
+        """ Return the @type of the identifier, if defined 
+        See https://iatistandard.org/en/iati-standard/203/codelists/otheridentifiertype/
+
+        """
+        return self.get_text("@type")
+
+    @property
+    def owner_org (self):
+        """ Return the org that owns the identifier, if present """
+        node = self.get_node("owner-org")
+        if node:
+            return Organisation(node, self.activity)
+        else:
+            return None
+
+    
 
 #
 # Utility methods

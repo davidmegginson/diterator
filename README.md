@@ -22,11 +22,53 @@ By default, the Iterator class filters duplicate activities out of the results. 
 
 Each activity appears inside a wrapper that gives you easy access to the most-common properties (see documentation below). You can also use [XPath](https://en.wikipedia.org/wiki/XPath) queries to pull out specific pieces of information.
 
+### D-Portal query parameters
+
 Full documentation of the D-Portal query parameters is available here:
 
 https://github.com/devinit/D-Portal/blob/master/documents/dstore_q.md
 
-Note that some queries will return the same activity multiple times, so you will need to deduplicate.
+The most common D-Portal query parameters include the following:
+
+Parameter | Description | Example
+-- | -- | --
+reporting | The reporting org name | World Health Organization
+reporting_code | The reporting org IATI code | XM-DAC-928
+aid | IATI identifier for a specific activity | XM-DAC-928-ER-2016-17-02.006.AF01.ERI01
+sector_code | A specific OECD-DAC sector code | 72050
+title | The activity title in English. | Technical assistance to enable (...)
+description | The activity description in English. | This activity will (...)
+country_code | The [ISO 3166:1-alpha2 code](https://iatistandard.org/en/iati-standard/203/codelists/country/) for a recipient country. | SO
+location_name | A name of a specific location (as specified by the publisher). | Tombali
+date | A date that should fall within the activity's date range, in ISO 8601 (YYYY-mm-dd) format. | 2021-03-01
+status_code | The activity's [status code](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/) | 2
+
+Use "|" to separate multiple values, and append "_nteq" to the property name for "not equal", "_gt" for "greater than", "_gteq" for "greater than or equal", "_lt" for "less than", "_lteq" for less than or equal, "_glob" for case-sensitive string matching with "*" and "_" as wildcards, "_like" for case-insensitive string matching.
+
+For example, if you wanted to find all activities for Somalia or Kenya in 2020, you could pass this query to the iterator:
+
+```
+from diterator import Iterator
+
+activities = Iterator({
+    "country_code": "SO|KE",
+    "day_gteq": "2020-01-01",
+    "day_lteq": "2020-12-31",
+})
+```
+
+If you wanted to further filter to only activities with a DAC sector code starting with "7", you could use
+
+```
+activities = Iterator({
+    "country_code": "SO|KE",
+    "day_gteq": "2020-01-01",
+    "day_lteq": "2020-12-31",
+    "sector_code_glob": "7????",
+})
+```
+
+Again, go to the [D-Portal Q API documentation](https://github.com/devinit/D-Portal/blob/master/documents/dstore_q.md) for full details.
 
 ### Using an XML file or URL instead of the D-Portal Q API
 
@@ -80,6 +122,7 @@ description | The activity description, possibly in multiple languages. | Narrat
 participating_orgs | All participating organisations. | list of Organisation
 participating_orgs_by_role | Participating organisations grouped by [role code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of Organisation
 participating_orgs_by_type | Participating organisations grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of Organisation
+other_identifiers | List of non-IATI alternative activity identifiers | list of Identifier
 activity_status | A code describing the [status of the activity](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/). | string
 is_active | Convenience method to show if the activity is currently active. | boolean
 activity_dates | Activity dates grouped by the [date-type code](https://iatistandard.org/en/iati-standard/203/codelists/activitydatetype/). | dict with strings
@@ -201,6 +244,17 @@ narrative | Multiple translations of this item's descriptive text. | NarrativeTe
 percentage | The percentage applicable to this item within its context and vocabulary, if relevant. | string
 type | Code for the type of the item, if relevant. | string
 level | code for the level of the item, if relevant. | string
+
+### Identifier object
+
+Represents a non-IATI identifier (e.g. iati-activity/other-identifier).
+
+Property | Description | Return value
+-- | -- | --
+activity | The parent activity. | Activity
+ref | The alternative identifier. | string
+type | The identifier [type code](https://iatistandard.org/en/iati-standard/203/codelists/otheridentifiertype/). | string
+owner_org | The organisation that owns the identifier, if specified. | Organisation
 
 ## Example
 
