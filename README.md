@@ -40,7 +40,8 @@ title | The activity title in English. | Technical assistance to enable (...)
 description | The activity description in English. | This activity will (...)
 country_code | The [ISO 3166:1-alpha2 code](https://iatistandard.org/en/iati-standard/203/codelists/country/) for a recipient country. | SO
 location_name | A name of a specific location (as specified by the publisher). | Tombali
-date | A date that should fall within the activity's date range, in ISO 8601 (YYYY-mm-dd) format. | 2021-03-01
+day_start | The activity's start date | 2020-01-01
+day_end | The activity's end date | 2020-12-31
 status_code | The activity's [status code](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/) | 2
 
 Use "|" to separate multiple values, and append "\_nteq" to the property name for "not equal", "\_gt" for "greater than", "\_gteq" for "greater than or equal", "\_lt" for "less than", "\_lteq" for less than or equal, "\_glob" for case-sensitive string matching with "*" and "\_" as wildcards, or "\_like" for case-insensitive string matching.
@@ -52,8 +53,8 @@ from diterator import Iterator
 
 activities = Iterator({
     "country_code": "SO|KE",
-    "day_gteq": "2020-01-01",
-    "day_lteq": "2020-12-31",
+    "day_end_gteq": "2020-01-01",
+    "day_start_lteq": "2020-12-31",
 })
 ```
 
@@ -62,8 +63,8 @@ If you wanted to further filter to only activities with a DAC sector code starti
 ```
 activities = Iterator({
     "country_code": "SO|KE",
-    "day_gteq": "2020-01-01",
-    "day_lteq": "2020-12-31",
+    "day_end_gteq": "2020-01-01",
+    "day_start_lteq": "2020-12-31",
     "sector_code_glob": "7????",
 })
 ```
@@ -266,8 +267,8 @@ from diterator import Iterator
 
 activities = Iterator({
     "country_code": "so",
-    "day_gteq": "2019-01-01",
-    "day_lteq": "2021-12-31",
+    "day_end_gteq": "2019-01-01",
+    "day_start_lteq": "2021-12-31",
 })
 
 for activity in activities:
