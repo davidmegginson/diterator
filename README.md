@@ -43,7 +43,7 @@ location_name | A name of a specific location (as specified by the publisher). |
 date | A date that should fall within the activity's date range, in ISO 8601 (YYYY-mm-dd) format. | 2021-03-01
 status_code | The activity's [status code](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/) | 2
 
-Use "|" to separate multiple values, and append "_nteq" to the property name for "not equal", "_gt" for "greater than", "_gteq" for "greater than or equal", "_lt" for "less than", "_lteq" for less than or equal, "_glob" for case-sensitive string matching with "*" and "_" as wildcards, "_like" for case-insensitive string matching.
+Use "|" to separate multiple values, and append "\_nteq" to the property name for "not equal", "\_gt" for "greater than", "\_gteq" for "greater than or equal", "\_lt" for "less than", "\_lteq" for less than or equal, "\_glob" for case-sensitive string matching with "*" and "\_" as wildcards, or "\_like" for case-insensitive string matching.
 
 For example, if you wanted to find all activities for Somalia or Kenya in 2020, you could pass this query to the iterator:
 
