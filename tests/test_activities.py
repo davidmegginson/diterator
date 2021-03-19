@@ -18,27 +18,25 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertTrue(self.activity.humanitarian is True)
 
     def test_identifier (self):
-        self.assertEqual("XM-DAC-47066-DP.2154", self.activity.identifier)
+        self.assertEqual("XM-DAC-00000-0000", self.activity.identifier)
 
     def test_reporting_org (self):
-        self.assertEqual("International Organization for Migration (IOM)", str(self.activity.reporting_org))
+        self.assertEqual("Test Org", str(self.activity.reporting_org))
 
     def test_secondary_reporter (self):
         self.assertTrue(self.activity.secondary_reporter is False)
 
     def test_title (self):
-        self.assertTrue(str(self.activity.title).startswith("Promotion of Human Security through Comprehensive Health "))
+        self.assertEquals("Test activity title", str(self.activity.title))
 
     def test_description (self):
-        self.assertTrue(str(self.activity.description).startswith("The proposed project provides an "))
-        # test NarrativeText objects separately
+        self.assertTrue(str(self.activity.description).startswith("Test activity description"))
 
     def test_participating_orgs (self):
         self.assertEqual(2, len(self.activity.participating_orgs))
 
     def test_other_identifiers (self):
-        # fixme - example needed
-        self.assertEqual(0, len(self.activity.other_identifiers))
+        self.assertEqual(1, len(self.activity.other_identifiers))
 
     def test_participating_orgs_by_role (self):
         orgs = self.activity.participating_orgs_by_role
@@ -60,27 +58,24 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual("2020-03-15", self.activity.start_date_planned)
 
     def test_start_date_actual (self):
-        self.assertEqual("2020-03-15", self.activity.start_date_actual)
+        self.assertEqual("2020-03-16", self.activity.start_date_actual)
 
     def test_end_date_planned (self):
         self.assertEqual("2021-03-14", self.activity.end_date_planned)
 
     def test_end_date_actual (self):
-        # fixme - example needed
-        self.assertIsNone(self.activity.end_date_actual)
+        self.assertEqual("2021-03-15", self.activity.end_date_actual)
 
     # contact-info
 
     def test_activity_scope (self):
-        # fixme - example needed
-        self.assertIsNone(self.activity.activity_scope)
+        self.assertEqual("5", self.activity.activity_scope)
 
     def test_recipient_countries (self):
         self.assertEqual(1, len(self.activity.recipient_countries))
 
     def test_recipient_regions (self):
-        # fixme - example needed
-        self.assertEqual(0, len(self.activity.recipient_regions))
+        self.assertEqual(1, len(self.activity.recipient_regions))
 
     def test_sectors (self):
         self.assertEqual(3, len(self.activity.sectors))
@@ -91,12 +86,10 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual(1, len(self.activity.sectors_by_vocabulary["99"]))
 
     def test_tags (self):
-        # fixme - example needed
-        self.assertEqual(0, len(self.activity.tags))
+        self.assertEqual(2, len(self.activity.tags))
 
     def test_tags_by_vocabulary (self):
-        # fixme - example needed
-        self.assertEqual({}, self.activity.tags_by_vocabulary)
+        self.assertEqual(2, len(self.activity.tags_by_vocabulary["1"]))
 
     # country-budget-items
 

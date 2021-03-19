@@ -1,14 +1,17 @@
 <?xml version="1.0"?>
 <iati-activity xmlns:dstore="http://d-portal.org/xmlns/dstore" xmlns:iati-activities="http://d-portal.org/xmlns/iati-activities" dstore:dataset="iom-activity" dstore:index="667" humanitarian="1" xml:lang="en" default-currency="USD" iati-activities:generated-datetime="2021-02-26T11:20:25.490000+00:00" iati-activities:version="2.03">
-  <iati-identifier>XM-DAC-47066-DP.2154</iati-identifier>
-  <reporting-org ref="XM-DAC-47066" type="40">
-    <narrative>International Organization for Migration (IOM)</narrative>
+  <iati-identifier>XM-DAC-00000-0000</iati-identifier>
+  <reporting-org ref="XM-DAC-00000" type="40">
+    <narrative>Test Org</narrative>
+    <narrative xml:lang="fr">Organisation de test</narrative>
   </reporting-org>
   <title>
-    <narrative>Promotion of Human Security through Comprehensive Health and Water, Sanitation and Hygiene (WASH) Assistance to Crisis and Conflict-Affected Populations in Somalia</narrative>
+    <narrative>Test activity title</narrative>
+    <narrative xml:lang="fr">Titre de l'activité de test</narrative>
   </title>
   <description>
-    <narrative>The proposed project provides an integrated multi-sectoral life-saving and stabilization support towards improved human security of migrants, internally displaced persons and communities of return in Somalia. IOM is contributing to dignified, safe and secure living conditions and access to basic services for vulnerable populations affected by human-made and natural disasters. Through this project, IOM also works towards ensuring that vulnerable populations affected by crisis in Somalia have increased access to health services, and will ensure that targeted affected populations with high risk acute water diarrhoea/ cholera have improved access to safe water and good hygiene practices.</narrative>
+    <narrative>Test activity description</narrative>
+    <narrative xml:lang="fr">Description de l'activité de test</narrative>
   </description>
   <participating-org activity-id="XM-DAC-701-2-YK/IOM/71" ref="XM-DAC-701-2" role="1" type="10">
     <narrative>Japan - Ministry of Foreign Affairs</narrative>
@@ -16,16 +19,25 @@
   <participating-org ref="XM-DAC-47066" role="2" type="40">
     <narrative>International Organization for Migration (IOM)</narrative>
   </participating-org>
+  <other-identifier ref="abcde" type="B9">
+    <owner-org ref="XM-DAC-00000-0001">
+      <narrative>Other Test Org</narrative>
+    </owner-org>
+  </other-identifier>
   <activity-status code="2"/>
   <activity-date iso-date="2020-03-15" type="1">
     <narrative>Planned</narrative>
   </activity-date>
-  <activity-date iso-date="2020-03-15" type="2">
+  <activity-date iso-date="2020-03-16" type="2">
     <narrative>Actual</narrative>
   </activity-date>
   <activity-date iso-date="2021-03-14" type="3">
     <narrative>Planned</narrative>
   </activity-date>
+  <activity-date iso-date="2021-03-15" type="4">
+    <narrative>Planned</narrative>
+  </activity-date>
+  <activity-scope code="5"/>
   <contact-info type="1">
     <organisation>
       <narrative>IOM - Somalia</narrative>
@@ -37,6 +49,7 @@
     </mailing-address>
   </contact-info>
   <recipient-country code="SO"/>
+  <recipient-region code="289"/>
   <location>
     <location-reach code="1"/>
     <name>
@@ -66,6 +79,12 @@
   <sector code="72010" vocabulary="1">
     <narrative>Material relief assistance and services</narrative>
   </sector>
+  <tag code="1" vocabulary="1">
+    <narrative>Sample tag 1</narrative>
+  </tag>
+  <tag code="2" vocabulary="1">
+    <narrative>Sample tag 2</narrative>
+  </tag>
   <policy-marker code="2a" vocabulary="99" vocabulary-uri="https://data.iom.int/codelist/genderpolicy.pdf">
     <narrative>Project with sufficient inclusion of gender issues (mainstreamed)</narrative>
   </policy-marker>

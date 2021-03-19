@@ -142,7 +142,7 @@ class Activity(Base):
         """ Return a list of Identifier objects for alternative, non-IATI activity identifiers """
         identifiers = []
         for node in self.get_nodes("other-identifier"):
-            identifiers.append(Identifier(node))
+            identifiers.append(Identifier(node, self))
         return identifiers
 
     @property
@@ -195,12 +195,11 @@ class Activity(Base):
 
     @property
     def activity_scope (self):
-        """ Return the activity scope as a CodedItem, if present """
-        node = self.get_node("activity-scope")
-        if node:
-            return CodeItem(node, self)
-        else:
-            return None
+        """ Return the activity scope as a CodedItem, if present 
+        See https://iatistandard.org/en/iati-standard/203/codelists/activityscope/
+
+        """
+        return self.get_text("activity-scope/@code")
 
     @property
     def recipient_countries (self):
