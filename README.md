@@ -264,7 +264,6 @@ owner_org | The organisation that owns the identifier, if specified. | Organisat
 from diterator import Iterator
 
 activities = Iterator({
-    "from": "activities",
     "country_code": "so",
     "day_gteq": "2019-01-01",
     "day_lteq": "2021-12-31",
