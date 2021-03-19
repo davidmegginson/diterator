@@ -288,15 +288,60 @@ class Activity(Base):
 
     # policy-marker
 
-    # collaboration-type
+    @property
+    def collaboration_type (self):
+        """ Return a code for the collaboration type, if present.
+        See https://iatistandard.org/en/iati-standard/203/codelists/CollaborationType/
 
-    # default-flow-type
+        """
+        return self.get_text("collaboration-type/@code")
 
-    # default-finance-type
+    @property
+    def default_flow_type (self):
+        """ Return a code for the default flow type, if present.
+        See https://iatistandard.org/en/iati-standard/203/codelists/flowtype/
 
-    # default-aid-type
+        """
+        return self.get_text("default-flow-type/@code")
 
-    # default-tied-status
+    @property
+    def default_finance_type (self):
+        """ Return a code for the default finance type, if present.
+        See https://iatistandard.org/en/iati-standard/203/codelists/financetype/
+
+        """
+        return self.get_text("default-flow-type/@code")
+
+    @property
+    def default_aid_types (self):
+        """ Return a list of CodedItems for default aid types.
+        See https://iatistandard.org/en/iati-standard/203/codelists/aidtype/
+
+        """
+        items = []
+        for node in self.get_nodes("default-aid-type"):
+            items.append(CodedItem(node, self))
+        return items
+
+    @property
+    def default_aid_types_by_vocabulary (self):
+        """ Return a dict of CodedItems for default aid types, keyed by vocabulary.
+        See https://iatistandard.org/en/iati-standard/203/codelists/aidtypevocabulary/
+
+        """
+        vocab_map = {}
+        for type in self.default_aid_types:
+            vocab_map.setdefault(type.vocabulary, [])
+            vocab_map[type.vocabulary] = type
+        return vocab_map
+
+    @property
+    def default_tied_status (self):
+        """ Return a code for the default tied status, if present.
+        See https://iatistandard.org/en/iati-standard/203/codelists/tiedstatus/
+
+        """
+        return self.get_text("default-tied-status/@code")
 
     # budget
 

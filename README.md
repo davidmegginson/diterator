@@ -144,11 +144,12 @@ humanitarian_scopes | Humanitarian scopes (all types and vocabularies). | list o
 humanitarian_scopes_by_type | Humanitarian scopes grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopetype/). | dict with lists of CodedItem
 humanitarian_scopes_by_vocabulary | Humanitarian scopes grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopevocabulary/). | dict with lists of CodedItem
 policy_marker | _Not yet implemented_ | 
-collaboration_type | _Not yet implemented_ | 
-default_flow_type | _Not yet implemented_ | 
-default_finance_type | _Not yet implemented_ | 
-default_aid_type | _Not yet implemented_ | 
-default_tied_status | _Not yet implemented_ | 
+collaboration_type | Code for the [collaboration type](https://iatistandard.org/en/iati-standard/203/codelists/collaborationtype/), if specified. | string
+default_flow_type | Code for the default [flow type](https://iatistandard.org/en/iati-standard/203/codelists/flowtype/), if specified. | string
+default_finance_type | Code for the default [finance type](https://iatistandard.org/en/iati-standard/203/codelists/financetype/), if specified. | string
+default_aid_types | List of default [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) | list of CodedItem
+default_aid_types_by_vocabulary | Default aid types grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/aidtypevocabulary/) | dict with CodedItem
+default_tied_status | Code for the default [tied status](https://iatistandard.org/en/iati-standard/203/codelists/tiedstatus/) | string
 budget | _Not yet implemented_ | 
 planned_disbursement | _Not yet implemented_ | 
 capital_spend | _Not yet implemented_ | 

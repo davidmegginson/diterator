@@ -22,14 +22,12 @@ class TestActivityWrapper(unittest.TestCase):
 
     def test_reporting_org (self):
         self.assertEqual("International Organization for Migration (IOM)", str(self.activity.reporting_org))
-        # test Organisation objects separately
 
     def test_secondary_reporter (self):
         self.assertTrue(self.activity.secondary_reporter is False)
 
     def test_title (self):
         self.assertTrue(str(self.activity.title).startswith("Promotion of Human Security through Comprehensive Health "))
-        # test NarrativeText objects separately
 
     def test_description (self):
         self.assertTrue(str(self.activity.description).startswith("The proposed project provides an "))
@@ -37,7 +35,6 @@ class TestActivityWrapper(unittest.TestCase):
 
     def test_participating_orgs (self):
         self.assertEqual(2, len(self.activity.participating_orgs))
-        # test Organisation objects separately
 
     def test_other_identifiers (self):
         # fixme - example needed
@@ -47,13 +44,11 @@ class TestActivityWrapper(unittest.TestCase):
         orgs = self.activity.participating_orgs_by_role
         self.assertEqual(1, len(orgs["1"]))
         self.assertEqual(1, len(orgs["2"]))
-        # test Organisation objects separately
 
     def test_participating_orgs_by_type (self):
         orgs = self.activity.participating_orgs_by_type
         self.assertEqual(1, len(orgs["10"]))
         self.assertEqual(1, len(orgs["40"]))
-        # test Organisation objects separately
 
     def test_activity_status (self):
         self.assertEqual("2", self.activity.activity_status)
@@ -73,6 +68,8 @@ class TestActivityWrapper(unittest.TestCase):
     def test_end_date_actual (self):
         # fixme - example needed
         self.assertIsNone(self.activity.end_date_actual)
+
+    # contact-info
 
     def test_activity_scope (self):
         # fixme - example needed
@@ -101,6 +98,8 @@ class TestActivityWrapper(unittest.TestCase):
         # fixme - example needed
         self.assertEqual({}, self.activity.tags_by_vocabulary)
 
+    # country-budget-items
+
     def test_humanitarian_scopes (self):
         # fixme - example needed
         self.assertEqual(0, len(self.activity.humanitarian_scopes))
@@ -112,8 +111,52 @@ class TestActivityWrapper(unittest.TestCase):
     def test_humanitarian_scopes_by_vocabulary (self):
         # fixme - example needed
         self.assertEqual({}, self.activity.humanitarian_scopes_by_vocabulary)
-        
+
+    # policy-marker
+
+    def test_collaboration_type (self):
+        # fixme - example needed
+        self.assertIsNone(self.activity.collaboration_type)
+
+    def test_default_flow_type (self):
+        # fixme - example needed
+        self.assertIsNone(self.activity.default_flow_type)
+
+    def test_default_finance_type (self):
+        # fixme - example needed
+        self.assertIsNone(self.activity.default_finance_type)
+
+    def test_default_aid_types (self):
+        # fixme - example needed
+        self.assertEqual(0, len(self.activity.default_aid_types))
+
+    def test_default_aid_types_by_vocabulary (self):
+        # fixme - example needed
+        self.assertEqual(0, len(self.activity.default_aid_types_by_vocabulary))
+
+    def test_default_tied_status (self):
+        # fixme - example needed
+        self.assertIsNone(self.activity.default_tied_status)
+
+    # budget
+
+    # planned-disbursement
+
+    # capital-spend
+
     def test_transactions (self):
         self.assertEqual(1, len(self.activity.transactions))
-        # test Transaction objects separately
         
+    # document-link
+
+    # related-activity
+
+    # legacy-data
+
+    # conditions
+
+    # result
+
+    # crs-add
+
+    # fss
