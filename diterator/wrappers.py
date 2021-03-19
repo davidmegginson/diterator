@@ -193,7 +193,14 @@ class Activity(Base):
 
     # contact-info
 
-    # activity-scope
+    @property
+    def activity_scope (self):
+        """ Return the activity scope as a CodedItem, if present """
+        node = self.get_node("activity-scope")
+        if node:
+            return CodeItem(node, self)
+        else:
+            return None
 
     @property
     def recipient_countries (self):

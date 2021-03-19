@@ -131,7 +131,7 @@ start_date_actual | The actual start date in ISO 8601 format, if specified. | st
 end_date_planned | The planned end date in ISO 8601 format, if specified. | string
 end_date_actual | The actual end date in ISO 8601 format, if specified. | string
 contact_info | _Not yet implemented_ |
-activity_scope | _Not yet implemented_ |
+activity_scope | A [geographical-scope code](https://iatistandard.org/en/iati-standard/203/codelists/activityscope/) for the activity, if available. | CodedItem
 recipient_countries | A list of recipient countries. | list of CodedItem
 recipient_regions | A list of recipient regions. | list of CodedItem
 locations | A list of specific project locations. | list of Location

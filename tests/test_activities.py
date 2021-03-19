@@ -39,6 +39,10 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual(2, len(self.activity.participating_orgs))
         # test Organisation objects separately
 
+    def test_other_identifiers (self):
+        # fixme - example needed
+        self.assertEqual(0, len(self.activity.other_identifiers))
+
     def test_participating_orgs_by_role (self):
         orgs = self.activity.participating_orgs_by_role
         self.assertEqual(1, len(orgs["1"]))
@@ -67,19 +71,22 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual("2021-03-14", self.activity.end_date_planned)
 
     def test_end_date_actual (self):
+        # fixme - example needed
         self.assertIsNone(self.activity.end_date_actual)
+
+    def test_activity_scope (self):
+        # fixme - example needed
+        self.assertIsNone(self.activity.activity_scope)
 
     def test_recipient_countries (self):
         self.assertEqual(1, len(self.activity.recipient_countries))
-        # will test CodedItem objects separately
 
     def test_recipient_regions (self):
+        # fixme - example needed
         self.assertEqual(0, len(self.activity.recipient_regions))
-        # will test CodedItem objects separately
 
     def test_sectors (self):
         self.assertEqual(3, len(self.activity.sectors))
-        # will test CodedItem objects separately
 
     def test_sectors_by_vocabulary (self):
         self.assertEqual(1, len(self.activity.sectors_by_vocabulary["1"]))
@@ -87,20 +94,23 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual(1, len(self.activity.sectors_by_vocabulary["99"]))
 
     def test_tags (self):
+        # fixme - example needed
         self.assertEqual(0, len(self.activity.tags))
-        # will test CodedItem objects separately
 
     def test_tags_by_vocabulary (self):
+        # fixme - example needed
         self.assertEqual({}, self.activity.tags_by_vocabulary)
 
     def test_humanitarian_scopes (self):
+        # fixme - example needed
         self.assertEqual(0, len(self.activity.humanitarian_scopes))
-        # will test CodedItem objects separately
 
     def test_humanitarian_scopes_by_type (self):
+        # fixme - example needed
         self.assertEqual({}, self.activity.humanitarian_scopes_by_type)
         
     def test_humanitarian_scopes_by_vocabulary (self):
+        # fixme - example needed
         self.assertEqual({}, self.activity.humanitarian_scopes_by_vocabulary)
         
     def test_transactions (self):
