@@ -5,7 +5,7 @@ test: venv
 	. $(VENV) && python setup.py test
 
 run: venv
-	. $(VENV) && python -m diterator.iterator
+	. $(VENV) && python -m diterator
 
 venv: requirements.txt
 	rm -rf venv

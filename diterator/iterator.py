@@ -18,11 +18,9 @@ class Iterator:
         if deduplicate:
             self.identifiers_seen = set()
 
-        # we need to have select tables (if not supplied)
-        if "from" not in self.search_params:
-            self.search_params["from"] = "act,country,sector"
-
-        self.search_params["limit"] = 25
+        # Ignore and override anything the user supplied for these
+        self.search_params["from"] = "act,country,sector,location"
+        self.search_params["limit"] = 100
         self.search_params["offset"] = 0
         self.search_params["form"] = "xml"
         
@@ -126,17 +124,3 @@ class ResponseStream(object):
         else:
             self._bytes.seek(position, whence)
 
-            
-# if called directly, run a little demo for Somalia
-if __name__ == "__main__":
-    activities = Iterator({
-        "country_code": "so",
-        "day_gteq": "2020-01-01",
-        "limit": 5,
-    })
-    for i, activity in enumerate(activities):
-        print(activity.default_language, activity.identifier, activity.title)
-        for transaction in activity.transactions:
-            print("\t", transaction.type, transaction.currency, transaction.value)
-        if i > 5:
-            break
