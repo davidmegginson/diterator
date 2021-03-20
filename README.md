@@ -186,10 +186,11 @@ sectors | A list of transaction sectors (all vocabularies), overriding the activ
 sectors_by_vocabulary | Transaction sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). Will default to the activity's sectors if the transaction does not specify its own. | dict with lists of CodedItem
 recipient_countries | A list of recipient countries, overriding the activity defaults. If the transaction has no recipient countries, return the activity's recipient countries as a default. You can use transaction.get_nodes("recipient-country") to check if the transaction specifies its own. | list of CodedItem
 recipient_regions | A list of recipient regions, overriding the activity defaults. If the transaction has no recipient regions, return the activity's recipient regions as a default. You can use transaction.get_nodes("recipient-region") to check if the transaction specifies its own. | list of CodedItem
-flow_type | _Not yet implemented_ | 
-finance_type | _Not yet implemented_ | 
-aid_type | _Not yet implemented_ | 
-tied_status | _Not yet implemented_ | 
+flow_type | A code for the transaction's [flow type](https://iatistandard.org/en/iati-standard/203/codelists/flowtype/). If the transaction has no flow type, return the activity's default flow type. | string
+finance_type | A code for the transaction's [finance type](https://iatistandard.org/en/iati-standard/203/codelists/financetype/). If the transaction has no finance type, return the activity's default finance type. | string
+aid_types | A list of [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) specified for the transaction. If the transaction has no aid types, return the activity's default aid types. | list of CodedItem
+aid_types_by_vocabulary | A dict of [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) specified for the transaction, keyed by vocabulary. If the transaction has no aid types, return the activity's default aid types. | list of CodedItem
+tied_status | A code for the transaction's [tied status](https://iatistandard.org/en/iati-standard/203/codelists/tiedstatus/). If the transaction has no tied status, return the activity's default tied status. | string
 
 ### NarrativeText object
 

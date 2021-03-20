@@ -32,3 +32,27 @@ class TestActivityWrapper(unittest.TestCase):
     def test_description (self):
         self.assertIsNone(self.transaction.description)
 
+    # provider_org
+
+    # receiver_org
+
+    # disbursement-channel
+
+    # sectors
+
+    # sectors_by_vocabulary
+
+    # recipient_countries
+
+    # recipient_regions
+
+    # flow-type
+
+    # finance-type
+
+    # aid-type
+
+    # tied-status
+
+    
+

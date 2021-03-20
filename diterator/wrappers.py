@@ -484,7 +484,11 @@ class Transaction(Base):
         If you need to know if the transaction has its own, use transaction.get_nodes("recipient-country") to check.
 
         """
-        return [CodedItem(node, self.activity) for node in self.get_nodes("recipient-country")]
+        nodes = self.get_nodes("recipient-country")
+        if len(nodes) > 0:
+            return [CodedItem(node, self.activity) for node in nodes]
+        else:
+            return self.activity.recipient_countries
     
     @property
     def recipient_regions (self):
@@ -498,15 +502,71 @@ class Transaction(Base):
             return [CodedItem(node, self.activity) for node in nodes]
         else:
             return self.activity.recipient_regions
+
+    @property
+    def flow_type (self):
+        """ Return the transaction's flow type code as a string.
+        Will return the activity's default flow type if there's no flow type on the transaction.
+        See https://iatistandard.org/en/iati-standard/203/codelists/flowtype/
+
+        """
+        code = self.get_text("flow-type/@code")
+        if code:
+            return code
+        else:
+            return self.activity.default_flow_type
     
-    # flow-type
+    @property
+    def finance_type (self):
+        """ Return the transaction's flow type code as a string.
+        Will return the activity's default finance type if there's no flow type on the transaction.
+        See https://iatistandard.org/en/iati-standard/203/codelists/financetype/
 
-    # finance-type
+        """
+        code = self.get_text("finance-type/@code")
+        if code:
+            return code
+        else:
+            return self.activity.default_finance_type
 
-    # aid-type
+    @property
+    def aid_types (self):
+        """ Return the a list of CodedItems for the transaction's aid types.
+        Will return the activity's default aid types if there's no aid type on the transaction.
+        See https://iatistandard.org/en/iati-standard/203/codelists/aidtype/
 
-    # tied-status
+        """
+        nodes = self.get_nodes("aid-type")
+        if nodes:
+            return [CodedItem(node) for node in nodes]
+        else:
+            return self.activity.default_aid_types
 
+    @property
+    def aid_types_by_vocabulary (self):
+        """ Return a dict of CodedItems for aid types, keyed by vocabulary.
+        Will return the activity's default aid types if there's no aid type on the transaction.
+        See https://iatistandard.org/en/iati-standard/203/codelists/aidtype/
+
+        """
+        vocab_map = {}
+        for type in self.aid_types:
+            vocab_map.setdefault(type.vocabulary, [])
+            vocab_map[type.vocabulary] = type
+        return vocab_map
+
+    @property
+    def tied_status (self):
+        """ Return a code for the transaction's tied status.
+	Will return the activity's default tied status if there's no tied status on the transaction.
+        See https://iatistandard.org/en/iati-standard/203/codelists/tiedstatus/
+
+        """
+        code = self.get_text("tied-status/@code")
+        if code:
+            return code
+        else:
+            return self.activity.default_tied_status
 
 class NarrativeText(Base):
     """ Wrapper class for narrative text in multiple languages """
