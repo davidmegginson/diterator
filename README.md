@@ -166,13 +166,21 @@ fss | _Not yet implemented_ |
 
 ### Transaction object
 
-Represents a transaction inside an IATI activity.
+Represents a transaction inside an IATI activity. 
+
+The class will return default values from the activity if they are not specified for the transaction. If you want to see if the transaction actually specifies the properties itself, use the get_node or get_text methods. For example, the following will specify whether the _humanitarian_ attribute, sectors, and aid type actually appear on the transaction itself:
+
+```
+transaction_humanitarian_flag = transaction.get_text("@humanitarian")
+tranaction_has_own_sectors = (len(transaction.get_nodes("sector")) > 0)
+transaction_has_own_aid_type = (transaction.get_node("aid-type") is not None)
+```
 
 Property | Description | Return value
 -- | -- | --
 activity | The parent activity. | Activity
 ref | The transaction reference, if available. | string
-humanitarian | "Is humanitarian" flag at the transaction level (overrides activity default). If the transaction has no flag, return the activity's value as a default. You can use transaction.get_text("@humanitarian") to check if the transaction has its own flag. | boolean
+humanitarian | "Is humanitarian" flag at the transaction level (overrides activity default). If the transaction has no flag, return the activity's value as a default. | boolean
 date | Transaction date in ISO 8601 format. | string
 type | Type code for the transaction. | string
 value | Transaction value in its currency (may be negative). | float
@@ -182,10 +190,10 @@ description | Descriptive text for the transaction, possibly in multiple languag
 provider_org | The source of the funds in the transaction. | Organisation
 receiver_org | The destination of the funds in the transaction. | Organisation
 disbursement_channel | _Not yet implemented_ | 
-sectors | A list of transaction sectors (all vocabularies), overriding the activity defaults. If the transaction has no sectors, return the activity's sectors as a default. You can use transaction.get_nodes("sector") to check if the transaction specifies its own. | list of CodedItem
+sectors | A list of transaction sectors (all vocabularies), overriding the activity defaults. If the transaction has no sectors, return the activity's sectors as a default. | list of CodedItem
 sectors_by_vocabulary | Transaction sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). Will default to the activity's sectors if the transaction does not specify its own. | dict with lists of CodedItem
-recipient_countries | A list of recipient countries, overriding the activity defaults. If the transaction has no recipient countries, return the activity's recipient countries as a default. You can use transaction.get_nodes("recipient-country") to check if the transaction specifies its own. | list of CodedItem
-recipient_regions | A list of recipient regions, overriding the activity defaults. If the transaction has no recipient regions, return the activity's recipient regions as a default. You can use transaction.get_nodes("recipient-region") to check if the transaction specifies its own. | list of CodedItem
+recipient_countries | A list of recipient countries, overriding the activity defaults. If the transaction has no recipient countries, return the activity's recipient countries as a default. | list of CodedItem
+recipient_regions | A list of recipient regions, overriding the activity defaults. If the transaction has no recipient regions, return the activity's recipient regions as a default. | list of CodedItem
 flow_type | A code for the transaction's [flow type](https://iatistandard.org/en/iati-standard/203/codelists/flowtype/). If the transaction has no flow type, return the activity's default flow type. | string
 finance_type | A code for the transaction's [finance type](https://iatistandard.org/en/iati-standard/203/codelists/financetype/). If the transaction has no finance type, return the activity's default finance type. | string
 aid_types | A list of [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) specified for the transaction. If the transaction has no aid types, return the activity's default aid types. | list of CodedItem
