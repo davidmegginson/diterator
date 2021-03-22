@@ -448,7 +448,13 @@ class Transaction(Base):
         """ Return an Organisation object for the provider of incoming funds """
         return self.get_organisation("receiver-org")
 
-    # disbursement-channel
+    @property
+    def disbursement_channel (self):
+        """ Return a code for the transaction's disbursement channel.
+        See https://iatistandard.org/en/iati-standard/203/codelists/disbursementchannel/
+
+        """
+        return self.get_text("disbursement_channel/@code")
 
     @property
     def sectors (self):

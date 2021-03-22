@@ -189,7 +189,7 @@ value_date | Date to use for currency conversion, in ISO 8601 format. | string
 description | Descriptive text for the transaction, possibly in multiple languages. | NarrativeText
 provider_org | The source of the funds in the transaction. | Organisation
 receiver_org | The destination of the funds in the transaction. | Organisation
-disbursement_channel | _Not yet implemented_ | 
+disbursement_channel | A code for the transaction's [disbursment channel](https://iatistandard.org/en/iati-standard/203/codelists/disbursementchannel/). | string
 sectors | A list of transaction sectors (all vocabularies), overriding the activity defaults. If the transaction has no sectors, return the activity's sectors as a default. | list of CodedItem
 sectors_by_vocabulary | Transaction sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). Will default to the activity's sectors if the transaction does not specify its own. | dict with lists of CodedItem
 recipient_countries | A list of recipient countries, overriding the activity defaults. If the transaction has no recipient countries, return the activity's recipient countries as a default. | list of CodedItem
