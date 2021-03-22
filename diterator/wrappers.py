@@ -446,7 +446,7 @@ class Transaction(Base):
     @property
     def receiver_org (self):
         """ Return an Organisation object for the provider of incoming funds """
-        return self.get_organisation("provider-org")
+        return self.get_organisation("receiver-org")
 
     # disbursement-channel
 

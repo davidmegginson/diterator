@@ -32,9 +32,11 @@ class TestActivityWrapper(unittest.TestCase):
     def test_description (self):
         self.assertIsNone(self.transaction.description)
 
-    # provider_org
+    def test_provider_org (self):
+        self.assertEqual("Japan - Ministry of Foreign Affairs", str(self.transaction.provider_org.name))
 
-    # receiver_org
+    def test_receiver_org (self):
+        self.assertIsNone(self.transaction.receiver_org)
 
     # disbursement-channel
 
