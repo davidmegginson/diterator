@@ -273,7 +273,7 @@ class Activity(Base):
         """ See https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopetype/ """
         type_map = {}
         for scope in self.humanitarian_scopes:
-            type_map.set_default(scope.type, [])
+            type_map.setdefault(scope.type, [])
             type_map[scope.type].append(scope)
         return type_map
 
@@ -281,7 +281,7 @@ class Activity(Base):
     def humanitarian_scopes_by_vocabulary (self):
         vocabulary_map = {}
         for scope in self.humanitarian_scopes:
-            vocabulary_map.set_default(scope.vocabulary, [])
+            vocabulary_map.setdefault(scope.vocabulary, [])
             vocabulary_map[scope.vocabulary].append(scope)
         return vocabulary_map
 
