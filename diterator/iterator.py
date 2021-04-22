@@ -18,8 +18,10 @@ class Iterator:
         if deduplicate:
             self.identifiers_seen = set()
 
+        if not "from" in self.search_params:
+            self.search_params["from"] = "act,country,sector"
+
         # Ignore and override anything the user supplied for these
-        self.search_params["from"] = "act,country,sector,location"
         self.search_params["limit"] = 100
         self.search_params["offset"] = 0
         self.search_params["form"] = "xml"
