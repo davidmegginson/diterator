@@ -1,0 +1,3 @@
+Release 0.4:
+	- handle non-number as transaction value without stopping
+	- add Python logging

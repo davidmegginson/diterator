@@ -1,8 +1,10 @@
 """ Iterator through IATI activities from D-Portal """
 
-import collections, datetime, io, requests, xml.dom.pulldom
+import collections, datetime, io, logging, requests, xml.dom.pulldom
 
 from diterator.wrappers import Activity
+
+logger = logging.getLogger(__name__)
 
 
 API_ENDPOINT = "http://www.d-portal.org/q"

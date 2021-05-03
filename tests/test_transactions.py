@@ -1,4 +1,4 @@
-import os, unittest, xml.dom.minidom
+import logging, os, sys, unittest, xml.dom.minidom
 from diterator.wrappers import Activity
 
 class TestActivityWrapper(unittest.TestCase):
@@ -6,6 +6,7 @@ class TestActivityWrapper(unittest.TestCase):
     ACTIVITY_FILE = os.path.join(os.path.dirname(__file__), "./files/activity-01.xml")
 
     def setUp (self):
+        logging.basicConfig(stream=sys.stderr, level=logging.INFO)
         self.transaction = Activity(xml.dom.minidom.parse(self.ACTIVITY_FILE).firstChild).transactions[0]
 
     def test_ref (self):

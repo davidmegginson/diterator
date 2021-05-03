@@ -1,4 +1,4 @@
-import os, unittest, xml.dom.minidom
+import logging, os, sys, unittest, xml.dom.minidom
 from diterator.wrappers import Activity
 
 class TestActivityWrapper(unittest.TestCase):
@@ -6,6 +6,7 @@ class TestActivityWrapper(unittest.TestCase):
     ACTIVITY_FILE = os.path.join(os.path.dirname(__file__), "./files/activity-01.xml")
 
     def setUp (self):
+        logging.basicConfig(stream=sys.stderr, level=logging.INFO)
         self.activity = Activity(xml.dom.minidom.parse(self.ACTIVITY_FILE).firstChild)
 
     def test_default_currency (self):
@@ -27,7 +28,7 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertTrue(self.activity.secondary_reporter is False)
 
     def test_title (self):
-        self.assertEquals("Test activity title", str(self.activity.title))
+        self.assertEqual("Test activity title", str(self.activity.title))
 
     def test_description (self):
         self.assertTrue(str(self.activity.description).startswith("Test activity description"))

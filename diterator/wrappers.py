@@ -1,6 +1,8 @@
 """ Wrapper classes for IATI DOM nodes """
 
-import abc, xpath
+import abc, logging, xpath
+
+logger = logging.getLogger(__name__)
 
 
 class Base(abc.ABC):
@@ -417,7 +419,12 @@ class Transaction(Base):
     @property
     def value (self):
         """ Return the transaction value (may be negative) """
-        return float(self.get_text("value"))
+        s = self.get_text("value")
+        try:
+            return float(s)
+        except:
+            logger.warning("Malformed monetary value \"%s\" in transaction for activity \"%s\", treating as 0.0", s, self.activity.identifier)
+            return 0
 
     @property
     def currency (self):

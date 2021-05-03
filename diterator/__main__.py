@@ -1,6 +1,10 @@
 """ Simple demo code """
 
+import logging
+
 from . import Iterator
+
+logger = logging.getLogger(__name__)
 
 activities = Iterator({
     "country_code": "so",
