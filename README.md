@@ -114,10 +114,10 @@ Property | Description | Return value
 -- | -- | --
 default_currency | The activity's default ISO 4217 currency code. | string
 default_language | The default ISO 639 language code for text content in the activity. | string
-humanitarian | "Is humanitarian" flag at the activity level. | boolean
+humanitarian | "Is humanitarian" flag at the activity level. | boolean or None if unspecified
 identifier | The unique IATI identifier for the activity. | String
 reporting_org | The reporting organisation. | Organisation object
-secondary_reporter | If true, the reporting org is not involved in the activity. | boolean
+secondary_reporter | If true, the reporting org is not involved in the activity. | boolean or None if unspecified
 title | The activity title, possibly in multiple languages. | NarrativeText
 description | The activity description, possibly in multiple languages. | NarrativeText
 participating_orgs | All participating organisations. | list of Organisation
@@ -180,7 +180,7 @@ Property | Description | Return value
 -- | -- | --
 activity | The parent activity. | Activity
 ref | The transaction reference, if available. | string
-humanitarian | "Is humanitarian" flag at the transaction level (overrides activity default). If the transaction has no flag, return the activity's value as a default. | boolean
+humanitarian | "Is humanitarian" flag at the transaction level (ignoring the activity level). | boolean or None if unspecified
 date | Transaction date in ISO 8601 format. | string
 type | Type code for the transaction. | string
 value | Transaction value in its currency (may be negative). | float

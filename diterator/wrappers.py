@@ -82,7 +82,10 @@ class Activity(Base):
 
     @property
     def humanitarian (self):
-        """ Return a truthy value (usually "1") if the activity as a whole is flagged as humanitarian """
+        """ Test for a humanitarian marker
+        Return True if explicitly flagged as humanitarian, False if explicitly flagged as not humanitarian, or None if unspecified
+
+        """
         return is_truthy(self.get_text("@humanitarian"))
 
     @property
@@ -97,7 +100,10 @@ class Activity(Base):
 
     @property
     def secondary_reporter (self):
-        """ Return a truthy value if the organisation is not directly responsible for the activity """
+        """ Check if the reporting organisation is directly responsible for the activity 
+        
+        Returns True if truthy, False if specified and not truthy, or None if unspecified.
+        """
         return is_truthy(self.get_text("reporting-org/@secondary-reporter"))
 
     @property
@@ -395,16 +401,11 @@ class Transaction(Base):
 
     @property
     def humanitarian (self):
-        """ Return a truthy value (usually "1") if this specific transaction is flagged as humanitarian
-        If there's no attribute, default to the activity value.
-        If you want to see if the transaction actually has an attribute, use transaction.get_text("@humanitarian") instead.
+        """ Test for a humanitarian marker (considers only the transaction, not the activity)
+        Return True if explicitly flagged as humanitarian, False if explicitly flagged as not humanitarian, or None if unspecified
 
         """
-        s = self.get_text("@humanitarian")
-        if s is not None:
-            return is_truthy(s)
-        else:
-            return self.activity.humanitarian
+        return is_truthy(self.get_text("@humanitarian"))
 
     @property
     def date (self):
@@ -816,7 +817,13 @@ class Identifier(Base):
 #
 
 def is_truthy (s):
-    if not s:
-        return False
+    """ Three-value truth test (True, False, None)
+    Return True if a value is truthy, False if present and not truthy, or None if unspecified
+
+    """
+    if s is None:
+        return None
+    elif s.strip().lower() in ['1', 'true', 'yes', 't', 'y']:
+        return True
     else:
-        return s.strip().lower() in ['1', 'true', 'yes', 't', 'y']
+        return False
