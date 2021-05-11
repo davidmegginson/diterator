@@ -1,3 +1,7 @@
+Release 0.5:
+	- the humanitarian and secondary_reporter properties now return True/False/None instead of True/False (None means unspecified)
+	- the humanitarian property of a Transaction no longer defaults to the activity if unspecified
+
 Release 0.4:
 	- handle non-number as transaction value without stopping
 	- add Python logging
