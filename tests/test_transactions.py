@@ -13,7 +13,7 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertIsNone(self.transaction.ref)
 
     def test_humanitarian (self):
-        self.assertTrue(self.transaction.humanitarian is True)
+        self.assertTrue(self.transaction.humanitarian is None)
 
     def test_date (self):
         self.assertEqual("2020-03-01", self.transaction.date)

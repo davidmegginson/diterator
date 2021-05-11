@@ -25,7 +25,7 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual("Test Org", str(self.activity.reporting_org))
 
     def test_secondary_reporter (self):
-        self.assertTrue(self.activity.secondary_reporter is False)
+        self.assertTrue(self.activity.secondary_reporter is None)
 
     def test_title (self):
         self.assertEqual("Test activity title", str(self.activity.title))
