@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 if sys.version_info < (3,):
     raise RuntimeError("diterator requires Python 3 or higher")
 
-__version__="0.4"
+__version__="0.5"
 
 from diterator.iterator import Iterator, XMLIterator
 
