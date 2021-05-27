@@ -129,8 +129,7 @@ class Activity(Base):
         """
         role_map = {}
         for org in self.participating_orgs:
-            role_map.setdefault(org.role, [])
-            role_map[org.role].append(org)
+            role_map.setdefault(org.role, []).append(org)
         return role_map
 
     @property
@@ -141,8 +140,7 @@ class Activity(Base):
         """
         type_map = {}
         for org in self.participating_orgs:
-            type_map.setdefault(org.type, [])
-            type_map[org.type].append(org)
+            type_map.setdefault(org.type, []).append(org)
         return type_map
 
     @property
@@ -232,8 +230,7 @@ class Activity(Base):
         """
         class_map = {}
         for location in self.locations:
-            class_map.setdefault(location.location_class, [])
-            class_map[location.location_class].append(location)
+            class_map.setdefault(location.location_class, []).append(location)
         return class_map
 
     @property
@@ -249,8 +246,7 @@ class Activity(Base):
         """
         sector_map = {}
         for sector in self.sectors:
-            sector_map.setdefault(sector.vocabulary, [])
-            sector_map[sector.vocabulary].append(sector)
+            sector_map.setdefault(sector.vocabulary, []).append(sector)
         return sector_map
 
     @property
@@ -266,8 +262,7 @@ class Activity(Base):
         """
         tag_map = {}
         for tag in self.tags:
-            tag_map.setdefault(tag.vocabulary, [])
-            tag_map[tag.vocabulary].append(tag)
+            tag_map.setdefault(tag.vocabulary, []).append(tag)
         return tag_map
 
     # country-budget-items
@@ -281,16 +276,14 @@ class Activity(Base):
         """ See https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopetype/ """
         type_map = {}
         for scope in self.humanitarian_scopes:
-            type_map.setdefault(scope.type, [])
-            type_map[scope.type].append(scope)
+            type_map.setdefault(scope.type, []).append(scope)
         return type_map
 
     @property
     def humanitarian_scopes_by_vocabulary (self):
         vocabulary_map = {}
         for scope in self.humanitarian_scopes:
-            vocabulary_map.setdefault(scope.vocabulary, [])
-            vocabulary_map[scope.vocabulary].append(scope)
+            vocabulary_map.setdefault(scope.vocabulary, []).append(scope)
         return vocabulary_map
 
     # policy-marker
@@ -338,8 +331,7 @@ class Activity(Base):
         """
         vocab_map = {}
         for type in self.default_aid_types:
-            vocab_map.setdefault(type.vocabulary, [])
-            vocab_map[type.vocabulary] = type
+            vocab_map.setdefault(type.vocabulary, []).append(type)
         return vocab_map
 
     @property
@@ -369,13 +361,23 @@ class Activity(Base):
         """
         type_map = {}
         for transaction in self.transactions:
-            type_map.setdefault(transaction.type, [])
-            type_map[transaction.type].append(transaction)
+            type_map.setdefault(transaction.type, []).append(transaction)
         return type_map
 
     # document-link
 
-    # related-activity
+    @property
+    def related_activities (self):
+        """ Return a list of Identifier objects for related activities """
+        return [Identifier(node, self) for node in self.get_nodes("related-activity")]
+
+    @property
+    def related_activities_by_type (self):
+        type_map = {}
+        for related_activity in self.related_activities:
+            type_map.setdefault(related_activity.type, []).append(related_activity)
+        return type_map
+        
 
     # legacy-data
 
@@ -487,8 +489,7 @@ class Transaction(Base):
         """
         sector_map = {}
         for sector in self.sectors:
-            sector_map.setdefault(sector.vocabulary, [])
-            sector_map[sector.vocabulary].append(sector)
+            sector_map.setdefault(sector.vocabulary, []).append(sector)
         return sector_map
 
     @property
@@ -565,8 +566,7 @@ class Transaction(Base):
         """
         vocab_map = {}
         for type in self.aid_types:
-            vocab_map.setdefault(type.vocabulary, [])
-            vocab_map[type.vocabulary] = type
+            vocab_map.setdefault(type.vocabulary, []).append(type)
         return vocab_map
 
     @property

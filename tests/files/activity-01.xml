@@ -105,4 +105,6 @@
     <finance-type code="110"/>
     <aid-type code="B03"/>
   </transaction>
+  <related-activity ref="XXX-YYY-ZZZ" type="1"/>
+  <related-activity ref="AAA-BBB-CCC" type="3"/>
 </iati-activity>

@@ -157,7 +157,8 @@ capital_spend | _Not yet implemented_ |
 transactions | All transactions associated with the activity. | list of Transaction objects
 transactions_by_type | Transactions grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/transactiontype/). | dict with Transaction
 document_link | _Not yet implemented_ | 
-related_activity | _Not yet implemented_ | 
+related_activities | All related activities. | list of Identifier objects (.ref and .type properties used)
+related_activities_by_type | Related activities grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/relatedactivitytype/). | dict with Identifier objects (.ref and .type properties used)
 legacy_data | _Not yet implemented_ | 
 conditions | _Not yet implemented_ | 
 result | _Not yet implemented_ | 

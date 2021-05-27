@@ -140,10 +140,22 @@ class TestActivityWrapper(unittest.TestCase):
 
     def test_transactions (self):
         self.assertEqual(1, len(self.activity.transactions))
+
+    # transactions_by_type
         
     # document-link
 
-    # related-activity
+    def test_related_activities (self):
+        self.assertEqual(2, len(self.activity.related_activities))
+        self.assertEqual("1", self.activity.related_activities[0].type)
+        self.assertEqual("XXX-YYY-ZZZ", self.activity.related_activities[0].ref)
+
+    def test_related_activities_by_type (self):
+        data = self.activity.related_activities_by_type
+        self.assertEqual(1, len(data["1"]))
+        self.assertEqual("1", data["1"][0].type)
+        self.assertEqual(1, len(data["3"]))
+        self.assertEqual("3", data["3"][0].type)
 
     # legacy-data
 

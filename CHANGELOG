@@ -1,3 +1,6 @@
+Release 0.6:
+	- added related_activities and related_activities_by_type to activity wrapper
+
 Release 0.5:
 	- the humanitarian and secondary_reporter properties now return True/False/None instead of True/False (None means unspecified)
 	- the humanitarian property of a Transaction no longer defaults to the activity if unspecified
