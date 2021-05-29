@@ -91,7 +91,23 @@ class Activity(Base):
     @property
     def hierarchy (self):
         """ Return the hierarchy level, if specified """
-        return self.get_text("@hierarchy");
+        return self.get_text("@hierarchy")
+
+    @property
+    def linked_data_uri (self):
+        """ Return the linked-data URI for this specific activity
+        FIXME should default to iati-activities/@linked-data-default
+
+        """
+        return self.get_text("@linked-data-uri")
+
+    @property
+    def budget_not_provided (self):
+        """ Return a code for why a budget was not provided
+        See https://iatistandard.org/en/iati-standard/203/codelists/budgetnotprovided/
+
+        """
+        return self.get_text("@budget-not-provided")
 
     @property
     def identifier (self):

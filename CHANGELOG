@@ -1,5 +1,5 @@
 Release 0.7:
-	- added hierarchy to Activity wrapper
+	- added hierarchy, linked_data_uri, and budget_not_provided to Activity wrapper
 
 Release 0.6:
 	- added related_activities and related_activities_by_type to activity wrapper

@@ -18,6 +18,12 @@ class TestActivityWrapper(unittest.TestCase):
     def test_humanitarian (self):
         self.assertTrue(self.activity.humanitarian is True)
 
+    # @hierarchy
+
+    # @linked-data-uri
+
+    # @budget-not-provided
+
     def test_identifier (self):
         self.assertEqual("XM-DAC-00000-0000", self.activity.identifier)
 

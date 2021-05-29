@@ -115,7 +115,9 @@ Property | Description | Return value
 default_currency | The activity's default ISO 4217 currency code. | string
 default_language | The default ISO 639 language code for text content in the activity. | string
 humanitarian | "Is humanitarian" flag at the activity level. | boolean or None if unspecified
-hierarchy | Activity hierarchy. | Returns a string version of an integer representing the activity hierarchy level (1-4).
+hierarchy | Activity hierarchy. | String
+linked_data_uri | A URL for a linked-data version of this information. | String
+budget_not_provided | A [code](https://iatistandard.org/en/iati-standard/203/codelists/budgetnotprovided/) explaining why there's no budget provided for this activity. | String
 identifier | The unique IATI identifier for the activity. | String
 reporting_org | The reporting organisation. | Organisation object
 secondary_reporter | If true, the reporting org is not involved in the activity. | boolean or None if unspecified
