@@ -89,6 +89,11 @@ class Activity(Base):
         return is_truthy(self.get_text("@humanitarian"))
 
     @property
+    def hierarchy (self):
+        """ Return the hierarchy level, if specified """
+        return self.get_text("@hierarchy");
+
+    @property
     def identifier (self):
         """ Return the activity's IATI identifier """
         return self.get_text("iati-identifier")
