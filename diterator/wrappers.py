@@ -73,12 +73,12 @@ class Activity(Base):
     @property
     def default_currency (self):
         """ Return the default ISO 4217 currency code for the activity's transactions """
-        return self.get_text("@default-currency").upper()
+        return upper(self.get_text("@default-currency"))
 
     @property
     def default_language (self):
         """ Return the default ISO 639-2 language code for the activity's text """
-        return self.node.getAttribute("xml:lang").lower()
+        return lower(self.node.getAttribute("xml:lang"))
 
     @property
     def humanitarian (self):
@@ -844,7 +844,20 @@ def is_truthy (s):
     """
     if s is None:
         return None
-    elif s.strip().lower() in ['1', 'true', 'yes', 't', 'y']:
+    elif lower(s) in ['1', 'true', 'yes', 't', 'y']:
         return True
     else:
         return False
+
+def upper (s):
+    """ None-tolerant upper case """
+    if s is not None:
+        s = s.strip().upper()
+    return s
+
+def lower (s):
+    """ None-tolerant lower case """
+    if s is not None:
+        s = s.strip().lower()
+    return s
+

@@ -1,3 +1,6 @@
+Release 0.8:
+	- fix bug on case conversion for missing required values
+
 Release 0.7:
 	- added hierarchy, linked_data_uri, and budget_not_provided to Activity wrapper
 
