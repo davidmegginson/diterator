@@ -307,7 +307,16 @@ class Activity(Base):
             vocabulary_map.setdefault(scope.vocabulary, []).append(scope)
         return vocabulary_map
 
-    # policy-marker
+    @property
+    def policy_markers (self):
+        return [CodedItem(node, self) for node in self.get_nodes("policy-marker")]
+
+    @property
+    def policy_markers_by_vocabulary (self):
+        vocabulary_map = {}
+        for marker in self.policy_markers:
+            vocabulary_map.setdefault(marker.vocabulary, []).append(marker)
+        return vocabulary_map
 
     @property
     def collaboration_type (self):

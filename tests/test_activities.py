@@ -104,16 +104,16 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual(1, len(self.activity.humanitarian_scopes))
 
     def test_humanitarian_scopes_by_type (self):
-        key, value = next(iter(self.activity.humanitarian_scopes_by_type.items()))
-        self.assertEquals("1", key)
-        self.assertEqual("EP-2020-000012-001", value[0].code)
+        self.assertEqual(1, len(self.activity.humanitarian_scopes_by_type["1"]))
 
     def test_humanitarian_scopes_by_vocabulary (self):
-        key, value = next(iter(self.activity.humanitarian_scopes_by_vocabulary.items()))
-        self.assertEquals("1-2", key)
-        self.assertEqual("EP-2020-000012-001", value[0].code)
+        self.assertEqual(1, len(self.activity.humanitarian_scopes_by_vocabulary["1-2"]))
 
-    # policy-marker
+    def test_policy_markers (self):
+        self.assertEqual(1, len(self.activity.policy_markers))
+
+    def test_policy_markers_by_vocabulary (self):
+        self.assertEqual(1, len(self.activity.policy_markers_by_vocabulary["99"]))
 
     def test_collaboration_type (self):
         # fixme - example needed
