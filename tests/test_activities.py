@@ -101,17 +101,14 @@ class TestActivityWrapper(unittest.TestCase):
     # country-budget-items
 
     def test_humanitarian_scopes (self):
-        # fixme - example needed
         self.assertEqual(1, len(self.activity.humanitarian_scopes))
 
     def test_humanitarian_scopes_by_type (self):
-        # fixme - example needed
         key, value = next(iter(self.activity.humanitarian_scopes_by_type.items()))
         self.assertEquals("1", key)
         self.assertEqual("EP-2020-000012-001", value[0].code)
 
     def test_humanitarian_scopes_by_vocabulary (self):
-        # fixme - example needed
         key, value = next(iter(self.activity.humanitarian_scopes_by_vocabulary.items()))
         self.assertEquals("1-2", key)
         self.assertEqual("EP-2020-000012-001", value[0].code)
