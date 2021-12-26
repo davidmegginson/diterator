@@ -85,6 +85,9 @@
   <tag code="2" vocabulary="1">
     <narrative>Sample tag 2</narrative>
   </tag>
+  <humanitarian-scope code="EP-2020-000012-001" type="1" vocabulary="1-2">
+   <narrative xml:lang="EN">Global COVID-19</narrative>
+  </humanitarian-scope>
   <policy-marker code="2a" vocabulary="99" vocabulary-uri="https://data.iom.int/codelist/genderpolicy.pdf">
     <narrative>Project with sufficient inclusion of gender issues (mainstreamed)</narrative>
   </policy-marker>
