@@ -312,6 +312,14 @@ class Activity(Base):
         return [CodedItem(node, self) for node in self.get_nodes("policy-marker")]
 
     @property
+    def policy_markers_by_significance (self):
+        """ See https://iatistandard.org/en/iati-standard/203/codelists/policysignificance/ """
+        significance_map = {}
+        for marker in self.policy_markers:
+            significance_map.setdefault(marker.significance, []).append(marker)
+        return significance_map
+
+    @property
     def policy_markers_by_vocabulary (self):
         vocabulary_map = {}
         for marker in self.policy_markers:
@@ -802,6 +810,11 @@ class CodedItem (Base):
     def type (self):
         """ Return the @type of the item, if defined """
         return self.get_text("@type")
+
+    @property
+    def significance (self):
+        """ Return the significance for this item, if defined """
+        return self.get_text("@significance")
 
     @property
     def level (self):

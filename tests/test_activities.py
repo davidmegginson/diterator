@@ -110,10 +110,13 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual(1, len(self.activity.humanitarian_scopes_by_vocabulary["1-2"]))
 
     def test_policy_markers (self):
-        self.assertEqual(1, len(self.activity.policy_markers))
+        self.assertEqual(2, len(self.activity.policy_markers))
+
+    def test_policy_markers_by_significance (self):
+        self.assertEqual(2, len(self.activity.policy_markers_by_significance["1"]))
 
     def test_policy_markers_by_vocabulary (self):
-        self.assertEqual(1, len(self.activity.policy_markers_by_vocabulary["99"]))
+        self.assertEqual(2, len(self.activity.policy_markers_by_vocabulary["1"]))
 
     def test_collaboration_type (self):
         # fixme - example needed
