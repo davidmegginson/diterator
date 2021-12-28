@@ -11,7 +11,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='diterator',
-    version="0.6",
+    version="0.8",
     description='Iterator and wrapper for processing IATI activities.',
     long_description=long_description,
     long_description_content_type="text/markdown",
