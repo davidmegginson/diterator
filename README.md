@@ -119,7 +119,7 @@ hierarchy | Activity hierarchy. | String
 linked_data_uri | A URL for a linked-data version of this information. | String
 budget_not_provided | A [code](https://iatistandard.org/en/iati-standard/203/codelists/budgetnotprovided/) explaining why there's no budget provided for this activity. | String
 identifier | The unique IATI identifier for the activity. | String
-reporting_org | The reporting organisation. | [Organisation](#organisation-object) object
+reporting_org | The reporting organisation. | [Organisation](#organisation-object)
 secondary_reporter | If true, the reporting org is not involved in the activity. | boolean or None if unspecified
 title | The activity title, possibly in multiple languages. | [NarrativeText](#narrativetext-object)
 description | The activity description, possibly in multiple languages. | [NarrativeText](#narrativetext-object)
@@ -159,11 +159,11 @@ default_tied_status | Code for the default [tied status](https://iatistandard.or
 budget | _Not yet implemented_ | 
 planned_disbursement | _Not yet implemented_ | 
 capital_spend | _Not yet implemented_ | 
-transactions | All transactions associated with the activity. | list of [Transaction](#transaction-object) objects
+transactions | All transactions associated with the activity. | list of [Transaction](#transaction-object)s
 transactions_by_type | Transactions grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/transactiontype/). | dict with [Transaction](#transaction-object)
 document_link | _Not yet implemented_ | 
-related_activities | All related activities. | list of [Identifier](#identifier-object) objects (.ref and .type properties used)
-related_activities_by_type | Related activities grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/relatedactivitytype/). | dict with [Identifier](#identifier-object) objects (.ref and .type properties used)
+related_activities | All related activities. | list of [Identifier](#identifier-object) (.ref and .type properties used)
+related_activities_by_type | Related activities grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/relatedactivitytype/). | dict with [Identifier](#identifier-object) (.ref and .type properties used)
 legacy_data | _Not yet implemented_ | 
 conditions | _Not yet implemented_ | 
 result | _Not yet implemented_ | 
@@ -184,7 +184,7 @@ transaction_has_own_aid_type = (transaction.get_node("aid-type") is not None)
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | [Activity](#activity-object) object
+activity | The parent activity. | [Activity](#activity-object)
 ref | The transaction reference, if available. | string
 humanitarian | "Is humanitarian" flag at the transaction level (ignoring the activity level). | boolean or None if unspecified
 date | Transaction date in ISO 8601 format. | string
@@ -212,7 +212,7 @@ Represents multilingual text wherever it is allowed in IATI. If the language of 
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | [Activity](#activity-object) object
+activity | The parent activity. | [Activity](#activity-object)
 narratives | All available translations, keyed by language. | dict of string
 
 ### Organisation object
@@ -221,7 +221,7 @@ Represents an organisation (in any context) inside an IATI activity. Some proper
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | [Activity](#activity-object) object
+activity | The parent activity. | [Activity](#activity-object)
 ref | The organisation identifier, if available. | string
 type | The organisation's type code. | string
 role | The organisation's role code (if relevant). | string
