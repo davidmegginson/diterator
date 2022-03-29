@@ -126,7 +126,7 @@ description | The activity description, possibly in multiple languages. | [Narra
 participating_orgs | All participating organisations. | list of [Organisation](#organisation-object)
 participating_orgs_by_role | Participating organisations grouped by [role code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of [Organisation](#organisation-object)
 participating_orgs_by_type | Participating organisations grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of [Organisation](#organisation-object)
-other_identifiers | List of non-IATI alternative activity identifiers | list of Identifier
+other_identifiers | List of non-IATI alternative activity identifiers | list of [Identifier](#identifier-object)
 activity_status | A code describing the [status of the activity](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/). | string
 is_active | Convenience method to show if the activity is currently active. | boolean
 activity_dates | Activity dates grouped by the [date-type code](https://iatistandard.org/en/iati-standard/203/codelists/activitydatetype/). | dict with strings
@@ -159,11 +159,11 @@ default_tied_status | Code for the default [tied status](https://iatistandard.or
 budget | _Not yet implemented_ | 
 planned_disbursement | _Not yet implemented_ | 
 capital_spend | _Not yet implemented_ | 
-transactions | All transactions associated with the activity. | list of Transaction objects
-transactions_by_type | Transactions grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/transactiontype/). | dict with Transaction
+transactions | All transactions associated with the activity. | list of [Transaction](#transaction-object) objects
+transactions_by_type | Transactions grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/transactiontype/). | dict with [Transaction](#transaction-object)
 document_link | _Not yet implemented_ | 
-related_activities | All related activities. | list of Identifier objects (.ref and .type properties used)
-related_activities_by_type | Related activities grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/relatedactivitytype/). | dict with Identifier objects (.ref and .type properties used)
+related_activities | All related activities. | list of [Identifier](#identifier-object) objects (.ref and .type properties used)
+related_activities_by_type | Related activities grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/relatedactivitytype/). | dict with [Identifier](#identifier-object) objects (.ref and .type properties used)
 legacy_data | _Not yet implemented_ | 
 conditions | _Not yet implemented_ | 
 result | _Not yet implemented_ | 
