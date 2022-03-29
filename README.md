@@ -20,7 +20,7 @@ for activity in activities:
 
 By default, the Iterator class filters duplicate activities out of the results. If you don't want that behaviour, add the parameter ``deduplicate=False``
 
-Each activity appears inside a wrapper that gives you easy access to the most-common properties (see documentation below). You can also use [XPath](https://en.wikipedia.org/wiki/XPath) queries to pull out specific pieces of information.
+Each activity appears inside a [wrapper](#activity-object) that gives you easy access to the most-common properties (see documentation below). You can also use [XPath](https://en.wikipedia.org/wiki/XPath) queries to pull out specific pieces of information.
 
 ### D-Portal query parameters
 
@@ -119,13 +119,13 @@ hierarchy | Activity hierarchy. | String
 linked_data_uri | A URL for a linked-data version of this information. | String
 budget_not_provided | A [code](https://iatistandard.org/en/iati-standard/203/codelists/budgetnotprovided/) explaining why there's no budget provided for this activity. | String
 identifier | The unique IATI identifier for the activity. | String
-reporting_org | The reporting organisation. | Organisation object
+reporting_org | The reporting organisation. | [Organisation](#organisation-object) object
 secondary_reporter | If true, the reporting org is not involved in the activity. | boolean or None if unspecified
-title | The activity title, possibly in multiple languages. | NarrativeText
-description | The activity description, possibly in multiple languages. | NarrativeText
-participating_orgs | All participating organisations. | list of Organisation
-participating_orgs_by_role | Participating organisations grouped by [role code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of Organisation
-participating_orgs_by_type | Participating organisations grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of Organisation
+title | The activity title, possibly in multiple languages. | [NarrativeText](#narrativetext-object)
+description | The activity description, possibly in multiple languages. | [NarrativeText](#narrativetext-object)
+participating_orgs | All participating organisations. | list of [Organisation](#organisation-object)
+participating_orgs_by_role | Participating organisations grouped by [role code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of [Organisation](#organisation-object)
+participating_orgs_by_type | Participating organisations grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/organisationrole/). | dict with lists of [Organisation](#organisation-object)
 other_identifiers | List of non-IATI alternative activity identifiers | list of Identifier
 activity_status | A code describing the [status of the activity](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/). | string
 is_active | Convenience method to show if the activity is currently active. | boolean
@@ -136,25 +136,25 @@ end_date_planned | The planned end date in ISO 8601 format, if specified. | stri
 end_date_actual | The actual end date in ISO 8601 format, if specified. | string
 contact_info | _Not yet implemented_ |
 activity_scope | A [geographical-scope code](https://iatistandard.org/en/iati-standard/203/codelists/activityscope/) for the activity, if available. | string
-recipient_countries | A list of recipient countries. | list of CodedItem
-recipient_regions | A list of recipient regions. | list of CodedItem
-locations | A list of specific project locations. | list of Location
-locations_by_class | Specific project locations, grouped by [class code](https://iatistandard.org/en/iati-standard/203/codelists/geographiclocationclass/). | dict with lists of Location
-sectors | A list of project sectors (all vocabularies). | list of CodedItem
-sectors_by_vocabulary | Sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). | dict with lists of CodedItem
-tags | Activity tags (all vocabularies). | list of CodedItem
-tags_by_vocabulary | Activity tags grouped by [tag vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/tagvocabulary/). | dict with lists of CodedItem
-humanitarian_scopes | Humanitarian scopes (all types and vocabularies). | list of CodedItem
-humanitarian_scopes_by_type | Humanitarian scopes grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopetype/). | dict with lists of CodedItem
-humanitarian_scopes_by_vocabulary | Humanitarian scopes grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopevocabulary/). | dict with lists of CodedItem
-policy_markers | All policy markers for the activity. | list of CodedItem
-policy_markers_by_significance | Policy markers grouped by [significance code](https://iatistandard.org/en/iati-standard/203/codelists/policysignificance/) | dict with lists of CodedItem
-policy_markers_by_vocabulary | Policy markers grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/policymarkervocabulary/) | dict with lists of CodedItem
+recipient_countries | A list of recipient countries. | list of [CodedItem](#codeditem-object)
+recipient_regions | A list of recipient regions. | list of [CodedItem](#codeditem-object)
+locations | A list of specific project locations. | list of [Location](#location-object)
+locations_by_class | Specific project locations, grouped by [class code](https://iatistandard.org/en/iati-standard/203/codelists/geographiclocationclass/). | dict with lists of [Location](#location-object)
+sectors | A list of project sectors (all vocabularies). | list of [CodedItem](#codeditem-object)
+sectors_by_vocabulary | Sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). | dict with lists of [CodedItem](#codeditem-object)
+tags | Activity tags (all vocabularies). | list of [CodedItem](#codeditem-object)
+tags_by_vocabulary | Activity tags grouped by [tag vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/tagvocabulary/). | dict with lists of [CodedItem](#codeditem-object)
+humanitarian_scopes | Humanitarian scopes (all types and vocabularies). | list of [CodedItem](#codeditem-object)
+humanitarian_scopes_by_type | Humanitarian scopes grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopetype/). | dict with lists of [CodedItem](#codeditem-object)
+humanitarian_scopes_by_vocabulary | Humanitarian scopes grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopevocabulary/). | dict with lists of [CodedItem](#codeditem-object)
+policy_markers | All policy markers for the activity. | list of [CodedItem](#codeditem-object)
+policy_markers_by_significance | Policy markers grouped by [significance code](https://iatistandard.org/en/iati-standard/203/codelists/policysignificance/) | dict with lists of [CodedItem](#codeditem-object)
+policy_markers_by_vocabulary | Policy markers grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/policymarkervocabulary/) | dict with lists of [CodedItem](#codeditem-object)
 collaboration_type | Code for the [collaboration type](https://iatistandard.org/en/iati-standard/203/codelists/collaborationtype/), if specified. | string
 default_flow_type | Code for the default [flow type](https://iatistandard.org/en/iati-standard/203/codelists/flowtype/), if specified. | string
 default_finance_type | Code for the default [finance type](https://iatistandard.org/en/iati-standard/203/codelists/financetype/), if specified. | string
-default_aid_types | List of default [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) | list of CodedItem
-default_aid_types_by_vocabulary | Default aid types grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/aidtypevocabulary/) | dict with CodedItem
+default_aid_types | List of default [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) | list of [CodedItem](#codeditem-object)
+default_aid_types_by_vocabulary | Default aid types grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/aidtypevocabulary/) | dict with [CodedItem](#codeditem-object)
 default_tied_status | Code for the default [tied status](https://iatistandard.org/en/iati-standard/203/codelists/tiedstatus/) | string
 budget | _Not yet implemented_ | 
 planned_disbursement | _Not yet implemented_ | 
@@ -184,7 +184,7 @@ transaction_has_own_aid_type = (transaction.get_node("aid-type") is not None)
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | Activity
+activity | The parent activity. | [Activity](#activity-object) object
 ref | The transaction reference, if available. | string
 humanitarian | "Is humanitarian" flag at the transaction level (ignoring the activity level). | boolean or None if unspecified
 date | Transaction date in ISO 8601 format. | string
@@ -192,18 +192,18 @@ type | Type code for the transaction. | string
 value | Transaction value in its currency (may be negative). | float
 currency | ISO 4217 currency code for the transaction (overrides activity default). | string
 value_date | Date to use for currency conversion, in ISO 8601 format. | string
-description | Descriptive text for the transaction, possibly in multiple languages. | NarrativeText
-provider_org | The source of the funds in the transaction. | Organisation
-receiver_org | The destination of the funds in the transaction. | Organisation
+description | Descriptive text for the transaction, possibly in multiple languages. | [NarrativeText](#narrativetext-object)
+provider_org | The source of the funds in the transaction. | [Organisation](#organisation-object)
+receiver_org | The destination of the funds in the transaction. | [Organisation](#organisation-object)
 disbursement_channel | A code for the transaction's [disbursment channel](https://iatistandard.org/en/iati-standard/203/codelists/disbursementchannel/). | string
-sectors | A list of transaction sectors (all vocabularies), overriding the activity defaults. If the transaction has no sectors, return the activity's sectors as a default. | list of CodedItem
-sectors_by_vocabulary | Transaction sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). Will default to the activity's sectors if the transaction does not specify its own. | dict with lists of CodedItem
-recipient_countries | A list of recipient countries, overriding the activity defaults. If the transaction has no recipient countries, return the activity's recipient countries as a default. | list of CodedItem
-recipient_regions | A list of recipient regions, overriding the activity defaults. If the transaction has no recipient regions, return the activity's recipient regions as a default. | list of CodedItem
+sectors | A list of transaction sectors (all vocabularies), overriding the activity defaults. If the transaction has no sectors, return the activity's sectors as a default. | list of [CodedItem](#codeditem-object)
+sectors_by_vocabulary | Transaction sectors grouped by [sector vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/sectorvocabulary/). Will default to the activity's sectors if the transaction does not specify its own. | dict with lists of [CodedItem](#codeditem-object)
+recipient_countries | A list of recipient countries, overriding the activity defaults. If the transaction has no recipient countries, return the activity's recipient countries as a default. | list of [CodedItem](#codeditem-object)
+recipient_regions | A list of recipient regions, overriding the activity defaults. If the transaction has no recipient regions, return the activity's recipient regions as a default. | list of [CodedItem](#codeditem-object)
 flow_type | A code for the transaction's [flow type](https://iatistandard.org/en/iati-standard/203/codelists/flowtype/). If the transaction has no flow type, return the activity's default flow type. | string
 finance_type | A code for the transaction's [finance type](https://iatistandard.org/en/iati-standard/203/codelists/financetype/). If the transaction has no finance type, return the activity's default finance type. | string
-aid_types | A list of [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) specified for the transaction. If the transaction has no aid types, return the activity's default aid types. | list of CodedItem
-aid_types_by_vocabulary | A dict of [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) specified for the transaction, keyed by vocabulary. If the transaction has no aid types, return the activity's default aid types. | list of CodedItem
+aid_types | A list of [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) specified for the transaction. If the transaction has no aid types, return the activity's default aid types. | list of [CodedItem](#codeditem-object)
+aid_types_by_vocabulary | A dict of [aid type codes](https://iatistandard.org/en/iati-standard/203/codelists/aidtype/) specified for the transaction, keyed by vocabulary. If the transaction has no aid types, return the activity's default aid types. | list of [CodedItem](#codeditem-object)
 tied_status | A code for the transaction's [tied status](https://iatistandard.org/en/iati-standard/203/codelists/tiedstatus/). If the transaction has no tied status, return the activity's default tied status. | string
 
 ### NarrativeText object
@@ -212,7 +212,7 @@ Represents multilingual text wherever it is allowed in IATI. If the language of 
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | Activity
+activity | The parent activity. | [Activity](#activity-object) object
 narratives | All available translations, keyed by language. | dict of string
 
 ### Organisation object
@@ -221,12 +221,12 @@ Represents an organisation (in any context) inside an IATI activity. Some proper
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | Activity
+activity | The parent activity. | [Activity](#activity-object) object
 ref | The organisation identifier, if available. | string
 type | The organisation's type code. | string
 role | The organisation's role code (if relevant). | string
 activity_id | The organisation's own IATI identifier for the activity (if relevant). | string
-name | All translations of the organisation's name. | NarrativeText
+name | All translations of the organisation's name. | [NarrativeText](#narrativetext-object)
 
 ### Location object
 
@@ -234,14 +234,14 @@ Wrapper for a specific location associated with an activity.
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | Activity
+activity | The parent activity. | [Activity](#activity-object)
 ref | The location's code, if available. | string
 location_reach | The location's reach code, if available. | string
-location_ids | Identifiers provided for the location, all vocabularies. | list of CodedItem
-name | All translations of the location's name. | NarrativeText
-description | All translations of the location's description. | NarrativeText
-activity_description | Translations of the description of the activity as it applies in this location. | NarrativeText
-administratives | Administrative codes for this location. | list of CodedItem
+location_ids | Identifiers provided for the location, all vocabularies. | list of [CodedItem](#codeditem-object)
+name | All translations of the location's name. | [NarrativeText](#narrativetext-object)
+description | All translations of the location's description. | [NarrativeText](#narrativetext-object)
+activity_description | Translations of the description of the activity as it applies in this location. | [NarrativeText](#narrativetext-object)
+administratives | Administrative codes for this location. | list of [CodedItem](#codeditem-object)
 point | Latitude and longitude, space separated. | string
 point_reference_system | Name of the lat/lon reference system used. | string
 exactness | Code for the location exactness. | string
@@ -254,10 +254,10 @@ This class applies to any item that can have a code and optionally, a vocabulary
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | Activity
+activity | The parent activity. | [Activity](#activity-object)
 code | Code for this item. | string
 vocabulary | Code for the (relevant) vocabulary in use. | string
-narrative | Multiple translations of this item's descriptive text. | NarrativeText
+narrative | Multiple translations of this item's descriptive text. | [NarrativeText](#narrativetext-object)
 percentage | The percentage applicable to this item within its context and vocabulary, if relevant. | string
 type | Code for the type of the item, if relevant. | string
 level | Code for the level of the item, if relevant. | string
@@ -269,10 +269,10 @@ Represents a non-IATI identifier (e.g. iati-activity/other-identifier).
 
 Property | Description | Return value
 -- | -- | --
-activity | The parent activity. | Activity
+activity | The parent activity. | [Activity](#activity-object)
 ref | The alternative identifier. | string
 type | The identifier [type code](https://iatistandard.org/en/iati-standard/203/codelists/otheridentifiertype/). | string
-owner_org | The organisation that owns the identifier, if specified. | Organisation
+owner_org | The organisation that owns the identifier, if specified. | [Organisation](#organisation-object)
 
 ## Example
 
