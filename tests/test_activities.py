@@ -101,18 +101,22 @@ class TestActivityWrapper(unittest.TestCase):
     # country-budget-items
 
     def test_humanitarian_scopes (self):
-        # fixme - example needed
-        self.assertEqual(0, len(self.activity.humanitarian_scopes))
+        self.assertEqual(1, len(self.activity.humanitarian_scopes))
 
     def test_humanitarian_scopes_by_type (self):
-        # fixme - example needed
-        self.assertEqual({}, self.activity.humanitarian_scopes_by_type)
-        
-    def test_humanitarian_scopes_by_vocabulary (self):
-        # fixme - example needed
-        self.assertEqual({}, self.activity.humanitarian_scopes_by_vocabulary)
+        self.assertEqual(1, len(self.activity.humanitarian_scopes_by_type["1"]))
 
-    # policy-marker
+    def test_humanitarian_scopes_by_vocabulary (self):
+        self.assertEqual(1, len(self.activity.humanitarian_scopes_by_vocabulary["1-2"]))
+
+    def test_policy_markers (self):
+        self.assertEqual(2, len(self.activity.policy_markers))
+
+    def test_policy_markers_by_significance (self):
+        self.assertEqual(2, len(self.activity.policy_markers_by_significance["1"]))
+
+    def test_policy_markers_by_vocabulary (self):
+        self.assertEqual(2, len(self.activity.policy_markers_by_vocabulary["1"]))
 
     def test_collaboration_type (self):
         # fixme - example needed

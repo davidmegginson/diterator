@@ -147,7 +147,9 @@ tags_by_vocabulary | Activity tags grouped by [tag vocabulary code](https://iati
 humanitarian_scopes | Humanitarian scopes (all types and vocabularies). | list of CodedItem
 humanitarian_scopes_by_type | Humanitarian scopes grouped by [type code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopetype/). | dict with lists of CodedItem
 humanitarian_scopes_by_vocabulary | Humanitarian scopes grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/humanitarianscopevocabulary/). | dict with lists of CodedItem
-policy_marker | _Not yet implemented_ | 
+policy_markers | All policy markers for the activity. | list of CodedItem
+policy_markers_by_significance | Policy markers grouped by [significance code](https://iatistandard.org/en/iati-standard/203/codelists/policysignificance/) | dict with lists of CodedItem
+policy_markers_by_vocabulary | Policy markers grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/policymarkervocabulary/) | dict with lists of CodedItem
 collaboration_type | Code for the [collaboration type](https://iatistandard.org/en/iati-standard/203/codelists/collaborationtype/), if specified. | string
 default_flow_type | Code for the default [flow type](https://iatistandard.org/en/iati-standard/203/codelists/flowtype/), if specified. | string
 default_finance_type | Code for the default [finance type](https://iatistandard.org/en/iati-standard/203/codelists/financetype/), if specified. | string
@@ -258,7 +260,8 @@ vocabulary | Code for the (relevant) vocabulary in use. | string
 narrative | Multiple translations of this item's descriptive text. | NarrativeText
 percentage | The percentage applicable to this item within its context and vocabulary, if relevant. | string
 type | Code for the type of the item, if relevant. | string
-level | code for the level of the item, if relevant. | string
+level | Code for the level of the item, if relevant. | string
+significance | Code for the significance of the item, if relevant. | string
 
 ### Identifier object
 
