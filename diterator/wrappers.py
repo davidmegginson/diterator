@@ -502,7 +502,7 @@ class Transaction(Base):
         See https://iatistandard.org/en/iati-standard/203/codelists/disbursementchannel/
 
         """
-        return self.get_text("disbursement_channel/@code")
+        return self.get_text("disbursement-channel/@code")
 
     @property
     def sectors (self):
@@ -591,7 +591,7 @@ class Transaction(Base):
         """
         nodes = self.get_nodes("aid-type")
         if nodes:
-            return [CodedItem(node) for node in nodes]
+            return [CodedItem(node, self.activity) for node in nodes]
         else:
             return self.activity.default_aid_types
 

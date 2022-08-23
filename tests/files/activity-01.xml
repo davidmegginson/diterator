@@ -107,9 +107,11 @@
     <provider-org provider-activity-id="XM-DAC-701-2-YK/IOM/71" ref="XM-DAC-701-2" type="10">
       <narrative>Japan - Ministry of Foreign Affairs</narrative>
     </provider-org>
+    <disbursement-channel code="2"/>
     <flow-type code="10"/>
     <finance-type code="110"/>
-    <aid-type code="B03"/>
+    <aid-type vocabulary="1" code="B03"/>
+    <tied-status code="5"/>
   </transaction>
   <related-activity ref="XXX-YYY-ZZZ" type="1"/>
   <related-activity ref="AAA-BBB-CCC" type="3"/>

@@ -13,8 +13,12 @@ distro: venv
 publish: distro
 	. $(VENV) && pip install twine && twine upload dist/*
 
-venv: requirements.txt
-	rm -rf venv
+sync:
+	git checkout main && git pull && git push
+
+venv: requirements.txt setup.py
 	python3 -m venv venv
 	. $(VENV) && pip install -r requirements.txt
 
+clean:
+	rm -rf venv
