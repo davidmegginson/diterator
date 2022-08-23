@@ -1,19 +1,23 @@
-Release 0.8:
+2022-08-23 Release 0.9:
+	- fixed bugs for transaction/aid-type and transaction/disbursement-channel
+	- added more unit test coverage
+
+2022-03-29 Release 0.8:
 	- added policy_markers, policy_markers_by_significance, and policy_markers_by_vocabulary to Activity wrapper
 	- added significance to CodedItem wrapper (for policy-marker)
 	- added internal links to docs
 
-Release 0.7:
+2021-08-24 Release 0.7:
 	- added hierarchy, linked_data_uri, and budget_not_provided to Activity wrapper
 	- fix bug on case conversion for missing required values
 
-Release 0.6:
+2021-05-27 Release 0.6:
 	- added related_activities and related_activities_by_type to activity wrapper
 
-Release 0.5:
+2021-05-11 Release 0.5:
 	- the humanitarian and secondary_reporter properties now return True/False/None instead of True/False (None means unspecified)
 	- the humanitarian property of a Transaction no longer defaults to the activity if unspecified
 
-Release 0.4:
+2021-05-03 Release 0.4:
 	- handle non-number as transaction value without stopping
 	- add Python logging
