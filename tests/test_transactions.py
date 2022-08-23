@@ -46,8 +46,7 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertIsNone(self.transaction1.receiver_org)
 
     def test_disbursement_channel (self):
-        # fixme needs test data
-        self.assertIsNone(self.transaction1.disbursement_channel)
+        self.assertEqual("2", self.transaction1.disbursement_channel)
 
     # sectors
 
@@ -57,13 +56,18 @@ class TestActivityWrapper(unittest.TestCase):
 
     # recipient_regions
 
-    # flow-type
+    def test_flow_type (self):
+        self.assertEqual("10", self.transaction1.flow_type)
 
-    # finance-type
+    def test_finance_type (self):
+        self.assertEqual("110", self.transaction1.finance_type)
 
-    # aid-type
+    def test_aid_type (self):
+        self.assertEqual("1", self.transaction1.aid_types[0].vocabulary)
+        self.assertEqual("B03", self.transaction1.aid_types[0].code)
 
-    # tied-status
+    def test_aid_types_by_vocabulary (self):
+        self.assertEqual("B03", self.transaction1.aid_types_by_vocabulary["1"][0].code)
 
-    
-
+    def test_tied_status (self):
+        self.assertEqual("5", self.transaction1.tied_status)
