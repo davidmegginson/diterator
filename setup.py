@@ -21,6 +21,11 @@ setup(
         'requests>=2.11',
         'py-dom-xpath-six',
     ],
+    extras_require={
+        'test': [
+            'pytest',
+        ],
+    },
     packages=['diterator',],
     test_suite='tests',
 )
