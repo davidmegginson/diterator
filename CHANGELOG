@@ -1,3 +1,6 @@
+2026-02-23:
+	- fixes for Python changes handing setup.py (was preventing test suite from running)
+
 2022-08-23 Release 0.9:
 	- fixed bugs for transaction/aid-type and transaction/disbursement-channel
 	- added more unit test coverage
