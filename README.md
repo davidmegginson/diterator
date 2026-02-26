@@ -129,7 +129,8 @@ participating_orgs_by_type | Participating organisations grouped by [type code](
 other_identifiers | List of non-IATI alternative activity identifiers | list of [Identifier](#identifier-object)
 activity_status | A code describing the [status of the activity](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/). | string
 is_active | Convenience method to show if the activity is currently active. | boolean
-activity_dates | Activity dates grouped by the [date-type code](https://iatistandard.org/en/iati-standard/203/codelists/activitydatetype/). | dict with strings
+activity\_dates | Activity dates grouped by the [date-type code](https://iatistandard.org/en/iati-standard/203/codelists/activitydatetype/). | dict with strings
+contact\_infos | Activity contacts grouped by the [contact-type code](https://iatistandard.org/en/iati-standard/203/codelists/contacttype/). | dict with strings
 start_date_planned | The planned start date in ISO 8601 format, if specified. | string
 start_date_actual | The actual start date in ISO 8601 format, if specified. | string
 end_date_planned | The planned end date in ISO 8601 format, if specified. | string
@@ -214,6 +215,21 @@ Property | Description | Return value
 -- | -- | --
 activity | The parent activity. | [Activity](#activity-object)
 narratives | All available translations, keyed by language. | dict of string
+
+### ContactInfo object
+
+Represents a set of contact information for an activity, such as name and email.
+
+Property | Description | Return value
+type | A code for the contact type | A string value from the IATI [Contact Type codelist](https://iatistandard.org/en/iati-standard/203/codelists/contacttype/)
+organisation | All translations of the contact organisation's name. | [NarrativeText](#narrativetext-object)
+department | All translations of the contact organisation's name. | [NarrativeText](#narrativetext-object)
+person\_name | All translations of the contact person's name. | [NarrativeText](#narrativetext-object)
+job\_title | All translations of the contact person's name. | [NarrativeText](#narrativetext-object)
+telephone | The contact telephone number. | string
+email | The contact email address. | string
+website | The contact organisation's website. | string
+mailing\_address | All translations of the contact mailing address. | [NarrativeText](#narrativetext-object)
 
 ### Organisation object
 

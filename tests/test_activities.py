@@ -75,6 +75,19 @@ class TestActivityWrapper(unittest.TestCase):
 
     # contact-info
 
+    def test_contact_info (self):
+        contacts = self.activity.contact_infos
+        contact = contacts["1"][0]
+        self.assertEqual("1", contact.type)
+        self.assertEqual("Org 1", str(contact.organisation))
+        self.assertEqual("Department 1", str(contact.department))
+        self.assertEqual("Person 1", str(contact.person_name))
+        self.assertEqual("Job title", str(contact.job_title))
+        self.assertEqual("+1-888-555-1111", contact.telephone)
+        self.assertEqual("nobody@example.org", contact.email)
+        self.assertEqual("https://example.org", contact.website)
+        self.assertEqual("123 Main St., Nowhere", str(contact.mailing_address))
+
     def test_activity_scope (self):
         self.assertEqual("5", self.activity.activity_scope)
 

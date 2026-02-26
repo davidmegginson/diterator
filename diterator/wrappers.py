@@ -185,7 +185,7 @@ class Activity(Base):
         """ Convenience method: return True if the activity status is "2" (Implementation) """
         return (self.activity_status == "2")
 
-    # activity-date
+    # activity-date - see activity_dates()
 
     @property
     def activity_dates (self):
@@ -219,6 +219,14 @@ class Activity(Base):
         return self.get_text("activity-date[@type=4]/@iso-date")
 
     # contact-info
+
+    @property
+    def contact_infos (self):
+        contacts = {}
+        for node in self.get_nodes("contact-info"):
+            type = node.getAttribute("type")
+            contacts.setdefault(type, []).append(ContactInfo(node, self))
+        return contacts
 
     @property
     def activity_scope (self):
@@ -656,6 +664,49 @@ class NarrativeText(Base):
             return list(self.narratives.values())[0]
         else:
             return ""
+
+
+class ContactInfo(Base):
+    """ Wrapper class for a contact """
+
+    def __init__ (self, node, activity):
+        super().__init__(node, activity)
+
+    @property
+    def type (self):
+        return self.node.getAttribute("type")
+
+    @property
+    def organisation (self):
+        return self.get_narrative("organisation", self.node)
+
+    @property
+    def department (self):
+        return self.get_narrative("department", self.node)
+
+    @property
+    def person_name (self):
+        return self.get_narrative("person-name", self.node)
+
+    @property
+    def job_title (self):
+        return self.get_narrative("job-title", self.node)
+
+    @property
+    def telephone (self):
+        return self.get_text("telephone", self.node)
+
+    @property
+    def email (self):
+        return self.get_text("email", self.node)
+
+    @property
+    def website (self):
+        return self.get_text("website", self.node)
+
+    @property
+    def mailing_address (self):
+        return self.get_narrative("mailing-address", self.node)
 
 
 class Organisation(Base):

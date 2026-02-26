@@ -1,4 +1,5 @@
-2026-02-23:
+2026-02-26 (Next release)
+	- implemented iati-activity/contact-info
 	- fixes for Python changes handing setup.py (was preventing test suite from running)
 
 2022-08-23 Release 0.9:

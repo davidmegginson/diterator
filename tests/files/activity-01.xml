@@ -37,6 +37,26 @@
   <activity-date iso-date="2021-03-15" type="4">
     <narrative>Planned</narrative>
   </activity-date>
+  <contact-info type="1">
+    <organisation>
+      <narrative>Org 1</narrative>
+    </organisation>
+    <department>
+      <narrative>Department 1</narrative>
+    </department>
+    <person-name>
+      <narrative>Person 1</narrative>
+    </person-name>
+    <job-title>
+      <narrative>Job title</narrative>
+    </job-title>
+    <telephone>+1-888-555-1111</telephone>
+    <email>nobody@example.org</email>
+    <website>https://example.org</website>
+    <mailing-address>
+      <narrative>123 Main St., Nowhere</narrative>
+    </mailing-address>
+  </contact-info>
   <activity-scope code="5"/>
   <contact-info type="1">
     <organisation>
