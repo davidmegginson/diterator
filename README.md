@@ -220,6 +220,7 @@ narratives | All available translations, keyed by language. | dict of string
 Represents a set of contact information for an activity, such as name and email.
 
 Property | Description | Return value
+-- | -- | --
 type | A code for the contact type | A string value from the IATI [Contact Type codelist](https://iatistandard.org/en/iati-standard/203/codelists/contacttype/)
 organisation | All translations of the contact organisation's name. | [NarrativeText](#narrativetext-object)
 department | All translations of the contact organisation's name. | [NarrativeText](#narrativetext-object)
