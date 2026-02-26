@@ -130,12 +130,11 @@ other_identifiers | List of non-IATI alternative activity identifiers | list of 
 activity_status | A code describing the [status of the activity](https://iatistandard.org/en/iati-standard/203/codelists/activitystatus/). | string
 is_active | Convenience method to show if the activity is currently active. | boolean
 activity\_dates | Activity dates grouped by the [date-type code](https://iatistandard.org/en/iati-standard/203/codelists/activitydatetype/). | dict with strings
-contact\_infos | Activity contacts grouped by the [contact-type code](https://iatistandard.org/en/iati-standard/203/codelists/contacttype/). | dict with strings
 start_date_planned | The planned start date in ISO 8601 format, if specified. | string
 start_date_actual | The actual start date in ISO 8601 format, if specified. | string
 end_date_planned | The planned end date in ISO 8601 format, if specified. | string
 end_date_actual | The actual end date in ISO 8601 format, if specified. | string
-contact_info | _Not yet implemented_ |
+contact\_infos | Activity contacts grouped by the [contact-type code](https://iatistandard.org/en/iati-standard/203/codelists/contacttype/). | dict with lists of [ContactInfo](#contactinfo-object) objects, keyed by type.
 activity_scope | A [geographical-scope code](https://iatistandard.org/en/iati-standard/203/codelists/activityscope/) for the activity, if available. | string
 recipient_countries | A list of recipient countries. | list of [CodedItem](#codeditem-object)
 recipient_regions | A list of recipient regions. | list of [CodedItem](#codeditem-object)
