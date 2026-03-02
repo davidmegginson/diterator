@@ -1,7 +1,7 @@
-import logging, os, sys, unittest, xml.dom.minidom
+import logging, math, os, sys, unittest, xml.dom.minidom
 from diterator.wrappers import Activity
 
-class TestActivityWrapper(unittest.TestCase):
+class TestTransactionWrapper(unittest.TestCase):
 
     ACTIVITY_1_FILE = os.path.join(os.path.dirname(__file__), "./files/activity-01.xml")
     ACTIVITY_2_FILE = os.path.join(os.path.dirname(__file__), "./files/activity-02.xml")
@@ -24,7 +24,7 @@ class TestActivityWrapper(unittest.TestCase):
         self.assertEqual("11", self.transaction1.type)
 
     def test_value (self):
-        self.assertEqual(1459753.72, self.transaction1.value)
+        self.assertTrue(math.isclose(1459753.72, self.transaction1.value))
 
     def test_currency (self):
         self.assertEqual("USD", self.transaction1.currency)

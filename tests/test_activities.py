@@ -1,4 +1,4 @@
-import logging, os, sys, unittest, xml.dom.minidom
+import logging, math, os, sys, unittest, xml.dom.minidom
 from diterator.wrappers import Activity
 
 class TestActivityWrapper(unittest.TestCase):
@@ -155,7 +155,14 @@ class TestActivityWrapper(unittest.TestCase):
         # fixme - example needed
         self.assertIsNone(self.activity.default_tied_status)
 
-    # budget
+    def test_budgets (self):
+        budgets = self.activity.budgets
+        self.assertIsNotNone(budgets)
+        self.assertEqual(1, len(budgets))
+
+    def test_budgets_by_type (self):
+        budgets = self.activity.budgets_by_type
+        self.assertEqual(1, len(budgets["1"]))
 
     # planned-disbursement
 

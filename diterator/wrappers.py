@@ -14,9 +14,13 @@ class Base(abc.ABC):
             activity = self
         self.activity = activity
 
-    def get_text (self, xpath_expr, base_node=None):
-        """ Get the text associated with an XPath expression """
-        return self.extract_node_text(self.get_node(xpath_expr, base_node))
+    def get_text (self, xpath_expr, base_node=None, default_value=None):
+        """ Get the text associated with an XPath expression; fall back to a default value if supplied """
+        result = self.extract_node_text(self.get_node(xpath_expr, base_node))
+        if result is None:
+            return default_value
+        else:
+            return result
 
     def get_narrative (self, xpath_expr, base_node=None):
         """ Get a NarrativeText object associated with an XPath expression """
@@ -388,7 +392,21 @@ class Activity(Base):
         """
         return self.get_text("default-tied-status/@code")
 
-    # budget
+    @property
+    def budgets(self):
+        """ Return a list of Transaction objects for the activity """
+        return [Budget(node, self) for node in self.get_nodes("budget")]
+
+    @property
+    def budgets_by_type(self):
+        """ Return a dict of budgets grouped by type code.
+        See https://iatistandard.org/en/iati-standard/203/codelists/budgettype/
+
+        """
+        type_map = {}
+        for budget in self.budgets:
+            type_map.setdefault(budget.type, []).append(budget)
+        return type_map
 
     # planned-disbursement
 
@@ -434,6 +452,52 @@ class Activity(Base):
     # crs-add
 
     # fss
+
+
+class Budget(Base):
+    """ Wrapper class for a budget node """
+
+    def __init__ (self, node, activity):
+        super().__init__(node, activity)
+
+    @property
+    def status (self):
+        """ Return the budget line item's @status attribute, or '1' if not specified """
+        return self.get_text("@status", None, "1")
+
+    @property
+    def type (self):
+        """ Return the budget line item's @type attribute, or '1' if not specified """
+        return self.get_text("@type", None, "1")
+
+    @property
+    def start_date (self):
+        """ Return the start date for the budget line item """
+        return self.get_text("period-start/@iso-date")
+
+    @property
+    def end_date (self):
+        """ Return the end date for the budget line item """
+        return self.get_text("period-end/@iso-date")
+
+    @property
+    def currency (self):
+        """ Return the budget line-item currency, or the default currency if not provided """
+        return self.get_text("value/@currency", None, self.activity.default_currency)
+
+    @property
+    def value_date (self):
+        """ Return the date to be used for currency conversion """
+        return self.get_text("value/@value-date")
+
+    @property
+    def value (self):
+        """ Return the value of the budget line (in the specified currency) """
+        s = self.get_text("value")
+        try:
+            return float(s)
+        except:
+            logger.warning("Malformed monetary value \"%s\" in budget for activity \"%s\", treating as 0.0", s, self.activity.identifier)
 
 
 class Transaction(Base):

@@ -16,6 +16,9 @@ publish: distro
 sync:
 	git checkout main && git pull && git push
 
+preview:
+	retext --preview README.md
+
 venv: requirements.txt setup.py
 	python3 -m venv venv
 	. $(VENV) && pip install -r requirements.txt
