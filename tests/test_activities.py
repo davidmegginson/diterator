@@ -164,6 +164,15 @@ class TestActivityWrapper(unittest.TestCase):
         budgets = self.activity.budgets_by_type
         self.assertEqual(1, len(budgets["1"]))
 
+    def test_planned_disbursements (self):
+        planned_disbursements = self.activity.planned_disbursements
+        self.assertIsNotNone(planned_disbursements)
+        self.assertEqual(2, len(planned_disbursements))
+
+    def test_planned_disbursements_by_type (self):
+        planned_disbursements = self.activity.planned_disbursements_by_type
+        self.assertEqual(1, len(planned_disbursements["1"]))
+
     # planned-disbursement
 
     # capital-spend

@@ -157,8 +157,9 @@ default\_aid\_types | List of default [aid type codes](https://iatistandard.org/
 default\_aid\_types\_by\_vocabulary | Default aid types grouped by [vocabulary code](https://iatistandard.org/en/iati-standard/203/codelists/aidtypevocabulary/) | dict with [CodedItem](#codeditem-object)
 default\_tied\_status | Code for the default [tied status](https://iatistandard.org/en/iati-standard/203/codelists/tiedstatus/) | string
 budgets | All budget line items associated with the activity. | list of [Budget](#budget-object)s
-budgets\_by\_type | Budget line items grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/transactiontype/). |  dict with [Budget](#budget-object)
-planned\_disbursement | _Not yet implemented_ | 
+budgets\_by\_type | Budget line items grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/budgettype/). |  dict with [Budget](#budget-object)
+planned\_disbursements | All planned disbursements associated with the activity. |  List of [PlannedDisbursement](#planneddisbursement-object)
+planned\_disbursements\_by\_type | Planned disbursements grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/budgettype/). | dict with [PlannedDisbursement](#planneddisbursement-object)
 capital\_spend | _Not yet implemented_ | 
 transactions | All transactions associated with the activity. | list of [Transaction](#transaction-object)s
 transactions\_by\_type | Transactions grouped by their [type code](https://iatistandard.org/en/iati-standard/203/codelists/transactiontype/). | dict with [Transaction](#transaction-object)
@@ -188,6 +189,25 @@ end\_date | The end date for the budget line. | A date in ISO 8601 format.
 currency | The currency of the budget line (defaults to activity/@default-currency if not supplied) | An ISO 4217 currency code.
 value\_date | The reference date for currency conversion. | A date in ISO 8601 format.
 value | The value of the budget line in the specified currency. | float
+
+
+### PlannedDisbursement object
+
+Represents a planned disbursement for an IATI activity.
+
+The class will return some default values if not explicitly provided, as described below.
+
+Property | Description | Return value
+-- | -- | --
+activity | The parent activity. | [Activity](#activity-object)
+type | A code for the planned disbursement type (defaults to "1"). | A value from the IATI [Budget Type codelist](https://iatistandard.org/en/iati-standard/203/codelists/budgettype/)
+start\_date | The start date for the budget line. | A date in ISO 8601 format.
+end\_date | The end date for the budget line. | A date in ISO 8601 format.
+currency | The currency of the budget line (defaults to activity/@default-currency if not supplied) | An ISO 4217 currency code.
+value\_date | The reference date for currency conversion. | A date in ISO 8601 format.
+value | The value of the budget line in the specified currency. | float
+provider\_org | The source of the funds in the planned disbursement. | [Organisation](#organisation-object)
+receiver\_org | The destination of the funds in the planned disbursement. | [Organisation](#organisation-object)
 
 
 ### Transaction object

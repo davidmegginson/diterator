@@ -394,7 +394,7 @@ class Activity(Base):
 
     @property
     def budgets(self):
-        """ Return a list of Transaction objects for the activity """
+        """ Return a list of Budget objects for the activity """
         return [Budget(node, self) for node in self.get_nodes("budget")]
 
     @property
@@ -409,6 +409,21 @@ class Activity(Base):
         return type_map
 
     # planned-disbursement
+    @property
+    def planned_disbursements(self):
+        """ Return a list of PlannedDisbursement objects for the activity """
+        return [PlannedDisbursement(node, self) for node in self.get_nodes("planned-disbursement")]
+
+    @property
+    def planned_disbursements_by_type(self):
+        """ Return a dict of planned disbursements grouped by type code.
+        See https://iatistandard.org/en/iati-standard/203/codelists/budgettype/
+
+        """
+        type_map = {}
+        for planned_disbursements in self.planned_disbursements:
+            type_map.setdefault(planned_disbursements.type, []).append(planned_disbursements)
+        return type_map
 
     # capital-spend
 
@@ -498,6 +513,57 @@ class Budget(Base):
             return float(s)
         except:
             logger.warning("Malformed monetary value \"%s\" in budget for activity \"%s\", treating as 0.0", s, self.activity.identifier)
+
+
+class PlannedDisbursement(Base):
+    """ Wrapper class for a planned disbursement node """
+
+    def __init__ (self, node, activity):
+        super().__init__(node, activity)
+
+    @property
+    def type (self):
+        """ Return the planned disbursement's @type attribute, or '1' if not specified """
+        return self.get_text("@type", None, "1")
+
+    @property
+    def start_date (self):
+        """ Return the start date for the planned disbursement """
+        return self.get_text("period-start/@iso-date")
+
+    @property
+    def end_date (self):
+        """ Return the end date for the planned disbursement """
+        return self.get_text("period-end/@iso-date")
+
+    @property
+    def currency (self):
+        """ Return the planned disbursement currency, or the default currency if not provided """
+        return self.get_text("value/@currency", None, self.activity.default_currency)
+
+    @property
+    def value_date (self):
+        """ Return the date to be used for currency conversion """
+        return self.get_text("value/@value-date")
+
+    @property
+    def value (self):
+        """ Return the value of the planned disbursement (in the specified currency) """
+        s = self.get_text("value")
+        try:
+            return float(s)
+        except:
+            logger.warning("Malformed monetary value \"%s\" in planned disbursement for activity \"%s\", treating as 0.0", s, self.activity.identifier)
+
+    @property
+    def provider_org (self):
+        """ Return an Organisation object for the provider of incoming funds """
+        return self.get_organisation("provider-org")
+
+    @property
+    def receiver_org (self):
+        """ Return an Organisation object for the receiver of outgoing funds """
+        return self.get_organisation("receiver-org")
 
 
 class Transaction(Base):
