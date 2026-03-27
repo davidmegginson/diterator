@@ -201,11 +201,11 @@ Property | Description | Return value
 -- | -- | --
 activity | The parent activity. | [Activity](#activity-object)
 type | A code for the planned disbursement type (defaults to "1"). | A value from the IATI [Budget Type codelist](https://iatistandard.org/en/iati-standard/203/codelists/budgettype/)
-start\_date | The start date for the budget line. | A date in ISO 8601 format.
-end\_date | The end date for the budget line. | A date in ISO 8601 format.
-currency | The currency of the budget line (defaults to activity/@default-currency if not supplied) | An ISO 4217 currency code.
+start\_date | The start date for the planned disbursement. | A date in ISO 8601 format.
+end\_date | The end date for the planned disbursement. | A date in ISO 8601 format.
+currency | The currency of the planned disbursement (defaults to activity/@default-currency if not supplied) | An ISO 4217 currency code.
 value\_date | The reference date for currency conversion. | A date in ISO 8601 format.
-value | The value of the budget line in the specified currency. | float
+value | The value of the planned disbursement in the specified currency. | float
 provider\_org | The source of the funds in the planned disbursement. | [Organisation](#organisation-object)
 receiver\_org | The destination of the funds in the planned disbursement. | [Organisation](#organisation-object)
 
